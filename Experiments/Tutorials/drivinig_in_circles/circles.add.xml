@@ -1,0 +1,24 @@
+<!-- 
+    This will add two (destination-)rerouters to our network making the 
+    vehicles go around the circle until the given end time (i.e., until 
+    one hundred million seconds have passed). Effectively, each rerouter
+     will update the destination for each vehicle entering its edge 
+     (specified by its edge-attribute) and set it to the edge given in the 
+     id-attribute of the destProbReroute-element. So as soon as a vehicle 
+     enters edge1 (its current destination), its destination will be updated
+      to edge2 and vice-versa, when entering edge2 it will be rerouted towards
+       edge1, thus following a circular route. -->
+
+
+<additionals>
+    <rerouter id="rerouter_0" edges="edge1">
+        <interval end="1e9">
+           <destProbReroute id="edge2"/>
+        </interval>
+    </rerouter>
+    <rerouter id="rerouter_1" edges="edge2">
+        <interval end="1e9">
+           <destProbReroute id="edge1"/>
+        </interval>
+    </rerouter>
+</additionals>
