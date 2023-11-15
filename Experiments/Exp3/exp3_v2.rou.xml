@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-11-03 12:45:10 by Eclipse SUMO netedit Version 1.18.0
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="typeWE" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
+
+    <!-- Routes -->
+    <route id="r1" edges="start_e E4 E8 E10 E13 end_e"/>
+    <route id="r2" edges="start_e E0 E2 E12 E13 end_e"/>
+    <route id="r3" edges="start_e E4 E6 -E9 E10 E13 end_e"/>
+
+    <vehicle id="v1" type="typeWE" route="r1" depart="0" />
+    <vehicle id="v2" type="typeWE" route="r1" depart="1" />
+    <vehicle id="v3" type="typeWE" route="r1" depart="2" />
+    <vehicle id="v4" type="typeWE" route="r1" depart="3" />
+    <vehicle id="v5" type="typeWE" route="r1" depart="4" />
+
+    <vehicle id="v6" type="typeWE" route="r2" depart="0" />
+    <vehicle id="v7" type="typeWE" route="r2" depart="1" />
+    <vehicle id="v8" type="typeWE" route="r2" depart="2" />
+    <vehicle id="v9" type="typeWE" route="r2" depart="3" />
+    <vehicle id="v10" type="typeWE" route="r2" depart="4" />
+
+    <vehicle id="v11" type="typeWE" route="r3" depart="0" />
+    <vehicle id="v12" type="typeWE" route="r3" depart="1" />
+    <vehicle id="v13" type="typeWE" route="r3" depart="2" />
+    <vehicle id="v14" type="typeWE" route="r3" depart="3" />
+    <vehicle id="v15" type="typeWE" route="r3" depart="4" />
+
+</routes>
