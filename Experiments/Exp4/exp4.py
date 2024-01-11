@@ -40,6 +40,12 @@ def create_roufile():
     with open("exp4.rou.xml", "w") as file:
         file.write(xml_content)
 
+
+
+
+
+
+
 def run():
     # Simulation loop
     step = 0
@@ -52,7 +58,13 @@ def run():
     traci.close()
     sys.stdout.flush()
 
+def find_shortestpath():
+    startEdge = 'start_e'
+    endEdge = 'end_e'
+    routeInfo = traci.simulation.findRoute(startEdge, endEdge)
 
+    print(routeInfo)   
+     
 if __name__ == "__main__":
     # Connect to SUMO simulation
     create_roufile()
