@@ -1,4 +1,4 @@
-# Goal: Find the shortest path in network and then send a vehicle along that route.
+# Goal: reroute a vehicle if it gets to a location
 
 import sys
 import traci
@@ -46,20 +46,34 @@ def create_roufile():
     with open("net1.rou.xml", "w") as file:
         file.write(xml_content)
 
- 
 
 def run():
     # Simulation loop
     step = 0
     count = traci.vehicle.getIDCount()
-    # print('vehicle count', count)
     routeInfo = traci.simulation.findRoute('start_e', 'end_e')
-    print(routeInfo.edges)
+    veh_id = "one"
     traci.route.add('route1', routeInfo.edges)
-    traci.vehicle.add(1,typeID='car', routeID='route1')
+    traci.route.add("upper",('start_e','-E2', 'E0','E1'))
+    traci.vehicle.add(vehID=veh_id,typeID='car', routeID='route1')
+
+    routeInfo = traci.simulation.findRoute('-end_e', '-start_e')
+    traci.route.add('route2', routeInfo.edges)
+    route2 = routeInfo.edges
+
+
 
     while step < 1000:
         traci.simulationStep()
+        # location = traci.vehicle.getRoadID(veh_id)
+        # print(location)
+        location = traci.vehicle.getRoadID(vehID=veh_id)
+        print(location)
+        if location == 'end_e' :
+            traci.vehicle.changeTarget(veh_id,'start_e')
+
+
+
 
         # Your simulation logic here
         step += 1
@@ -71,7 +85,7 @@ def run():
 
 if __name__ == "__main__":
     # Connect to SUMO simulation
-    create_roufile()
+    # create_roufile()
     print('Creating route file')
     traci.start(["sumo-gui", "-c", "net1.sumocfg"])  # opens the gui
     # traci.start(["sumo", "-c", "net1.sumocfg"])   
