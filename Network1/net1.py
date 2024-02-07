@@ -53,7 +53,7 @@ def run():
     count = traci.vehicle.getIDCount()
     routeInfo = traci.simulation.findRoute('start_e', 'end_e')
     veh_id = "one"
-    traci.route.add('route1', routeInfo.edges)
+    traci.route.add('rote1', routeInfo.edges)
     traci.route.add("upper",('start_e','-E2', 'E0','E1'))
     traci.vehicle.add(vehID=veh_id,typeID='car', routeID='route1')
 
