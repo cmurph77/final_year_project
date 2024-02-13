@@ -3,8 +3,7 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="randnet_1.net.xml"/>
-        <!-- <route-files value="randnet_1.rou.xml"/> -->
+        <net-file value="gridnet_1.net.xml"/>
         <!-- This uses the random demand file generated -->
         <route-files value="trips.trips.xml"/>
     </input>
