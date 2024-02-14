@@ -5,7 +5,11 @@
     <input>
         <net-file value="gridnet_1.net.xml"/>
         <!-- This uses the random demand file generated -->
-        <route-files value="trips.trips.xml"/>
+        <route-files value="trips.trips.xml" />
     </input>
+
+    <routing>
+        <routing-algorithm value="dijkstra"/>
+    </routing>
 
 </configuration>

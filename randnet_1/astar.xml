@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-02-14 11:32:53 by Eclipse SUMO GUI Version 1.18.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="randnet_1.net.xml"/>
+        <route-files value="trips.trips.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="output.xml"/>
+    </output>
+
+    <routing>
+        <routing-algorithm value="astar"/>
+    </routing>
+
+    <traci_server>
+        <remote-port value="54634"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="6" depart="6.00" arrival="183.00">
+        <route edges="-1233 1151 1690 -1842 -691 -448 -346 -304"/>
+    </vehicle>
+
+    <vehicle id="8" depart="8.00" arrival="242.00">
+        <route edges="-3054 3054 4309 4727 -4762 -2728 -548 550 2392"/>
+    </vehicle>
+
+    <vehicle id="1" depart="1.00" arrival="255.00">
+        <route edges="-3505 -2824 -2439 -2142 2140 2397 3385 -3385"/>
+    </vehicle>
+
+    <vehicle id="7" depart="7.00" arrival="262.00">
+        <route edges="2163 2479 -2999 -332 -64 -59 58 63 183"/>
+    </vehicle>
+
+    <vehicle id="5" depart="5.00" arrival="270.00">
+        <route edges="-304 304 346 448 691 1842 -1690 -1151 1233 1450"/>
+    </vehicle>
+
+    <vehicle id="3" depart="3.00" arrival="313.00">
+        <route edges="4703 -2896 -418 -184 192 324 351 502 548 2728 4762 -4727 -4309 -3054 -1842"/>
+    </vehicle>
+
+    <vehicle id="2" depart="2.00" arrival="315.00">
+        <route edges="3038 -3038 -1842 -691 -448 460 -520 -15 -3 11 1144 3035"/>
+    </vehicle>
+
+    <vehicle id="0" depart="0.00" arrival="326.00">
+        <route edges="2140 2397 3385 4592 -4719 -4309 -3054 -1690 -1151 -1026 -987 1239 -1239"/>
+    </vehicle>
+
+    <vehicle id="4" depart="4.00" arrival="413.00">
+        <route edges="-4741 -4319 -2616 -1559 -1239 -676 -673 674 -543 -520 -15 -3 11 1081 1265 -1265"/>
+    </vehicle>
+
+    <vehicle id="9" depart="9.00" arrival="472.00">
+        <route edges="3724 -3033 -1273 -1081 -11 3 15 520 543 -674 673 676 987 1056 -1056"/>
+    </vehicle>
+
+</routes>

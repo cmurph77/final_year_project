@@ -9,4 +9,12 @@
         <route-files value="trips.trips.xml"/>
     </input>
 
+    <routing>
+        <routing-algorithm value="astar"/>
+    </routing>
+
+   <output>
+        <vehroute-output value="output.xml" />
+   </output>
+
 </configuration>

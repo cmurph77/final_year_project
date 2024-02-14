@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-13 11:28:25.210745 by randomTrips.py UNKNOWN
+<!-- generated on 2024-02-13 12:29:38.693482 by randomTrips.py UNKNOWN
 <configuration>
     <net-file value="/Users/cianmurphy/code_directories/final_year_project/Experiments/gridnet_1/gridnet_1.net.xml"/>
     <end value="10.0"/>
@@ -9,7 +9,7 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <trip id="0" depart="0.00" from="G3G2" to="A3A4"/>
-    <trip id="1" depart="1.00" from="C8C9" to="C3D3"/>
+    <!-- <trip id="1" depart="1.00" from="C8C9" to="C3D3"/>
     <trip id="2" depart="2.00" from="H2H3" to="G6G7"/>
     <trip id="3" depart="3.00" from="I7H7" to="B1A1"/>
     <trip id="4" depart="4.00" from="E2E3" to="A3B3"/>
@@ -17,5 +17,5 @@
     <trip id="6" depart="6.00" from="A3A4" to="C1C2"/>
     <trip id="7" depart="7.00" from="G4F4" to="F4F3"/>
     <trip id="8" depart="8.00" from="C3C4" to="F8F7"/>
-    <trip id="9" depart="9.00" from="H9G9" to="A1A0"/>
+    <trip id="9" depart="9.00" from="H9G9" to="A1A0"/> -->
 </routes>

@@ -17,6 +17,7 @@ veh_id = "one"
 traci.route.add('route1', routeInfo.edges)
 # traci.vehicle.add(vehID=veh_id, routeID='route1')
 
+
 # Simulation loop
 step = 0
 # runs forever
