@@ -10,7 +10,7 @@
     </input>
 
     <routing>
-        <routing-algorithm value="astar"/>
+        <routing-algorithm value="dijkstra"/>
     </routing>
 
    <output>
