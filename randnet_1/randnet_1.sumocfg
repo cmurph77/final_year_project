@@ -10,7 +10,7 @@
     </input>
 
     <routing>
-        <routing-algorithm value="dijkstra"/>
+        <routing-algorithm value="CH"/>
     </routing>
 
    <output>
