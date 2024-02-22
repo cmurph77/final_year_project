@@ -6,12 +6,8 @@
         <net-file value="randnet_1.net.xml"/>
         <!-- <route-files value="randnet_1.rou.xml"/> -->
         <!-- This uses the random demand file generated -->
-        <route-files value="trips.trips.xml"/>
+        <route-files value="astar-routes-500.rou.xml"/>
     </input>
-
-    <routing>
-        <routing-algorithm value="CH"/>
-    </routing>
 
    <output>
         <vehroute-output value="output.xml" />
