@@ -1,9 +1,0 @@
-
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
-
-    <input>
-        <net-file value="exp1.net.xml"/>
-        <route-files value="exp1.rou.xml"/>
-    </input>
-
-</configuration>

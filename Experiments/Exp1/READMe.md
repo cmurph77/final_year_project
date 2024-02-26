@@ -1,1 +1,0 @@
-In this experiment i created a simple traci scrips that crates a route file and sends a vehicle on a route.
