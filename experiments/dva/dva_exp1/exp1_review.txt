@@ -1,6 +1,11 @@
 I set up a simple experment to compare the results of routing (with astar and dijkstra) 1000 vehicles 
 over a very small network of 20 nodes. I compared the results of these two simultions in the 
-results/results/dijsktra_v_astar_compare_100.xls workbook. I noted that for 1/4 of the 100 trips 
-the vehicles had the same travel time, this was at the start of the simultions. With a big enough 
-number of trips (1000) i was able to observe that the average time for dijkstra routing was 311.44 seconds 
-with the average time for astar being 351.64 seconds. This simulation time also took longer to run for 
+results/results/dijsktra_v_astar_compare_100.xls workbook. I noted that for 1/4 of the 1000 trips 
+the vehicles had the same travel time, this was at the start of the simultions. 
+
+With a big enough number of trips (1000) i was able to observe that the average time for dijkstra routing was 311.44 seconds 
+with the average time for astar being 351.64 seconds.
+
+However the simulation time for a star was slightly faster for dijsktra.
+
+The alogorithms yielded the same route 269 times
