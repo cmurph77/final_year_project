@@ -1,9 +1,5 @@
-# final_year_project
-This is a repository for Cian Murphys Final year project. The goal of this project is to measure the impact of vehicle routing algorithms on the over traffic in a city simulation.
-
-
 # Path name
-/Users/cianmurphy/code_directories/final_year_project
+/Users/cianmurphy/code_directories/experiment_1
 
 # Generate Network
 link: https://sumo.dlr.de/docs/netgenerate.html
@@ -17,3 +13,10 @@ duarouter --trip-files=trips.trips.xml --net-file=random_20.net.xml --routing-al
 duarouter --trip-files=trips.trips.xml --net-file=random_20.net.xml --routing-algorithm dijkstra --output-file=dijsktra-routes.rou.xml
 
 duarouter --trip-files=trips.trips.xml --net-file=random_20.net.xml --routing-algorithm dijkstra --output-file=dfrouter-routes.rou.xml
+
+# what ive done
+1. created a small network of 20 nodes
+2. generated 'n' random trips on the network
+3. ran the simulation for a varying size of n using both djikstra and astar
+4. stored the resulsts in the results directory using 'd' for dijkstra and 'a' for astar
+5. the results are compared in the excel workbook
