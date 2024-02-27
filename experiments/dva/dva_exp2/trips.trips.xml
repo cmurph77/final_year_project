@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-02-27 09:56:14.084101 by randomTrips.py UNKNOWN
+<configuration>
+    <net-file value="/Users/cianmurphy/code_directories/final_year_project/experiments/dva/dva_exp2/grid_10.net.xml"/>
+    <end value="5.0"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <trip id="0" depart="0.00" from="G3G2" to="A3A4"/>
+    <trip id="1" depart="1.00" from="C8C9" to="C3D3"/>
+    <trip id="2" depart="2.00" from="H2H3" to="G6G7"/>
+    <trip id="3" depart="3.00" from="I7H7" to="B1A1"/>
+    <trip id="4" depart="4.00" from="E2E3" to="A3B3"/>
+</routes>
