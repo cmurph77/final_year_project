@@ -33,20 +33,13 @@ def extract_routes(xml):
     return routes
 
 def compare_routes(xml1, xml2):
-    routes1 = extract_routes(xml1)
-    routes2 = extract_routes(xml2)
-    # routes1 = sorted(routes1, key=lambda x: x['id'])
+    trips1 = extract_routes(xml1)
+    trips2 = extract_routes(xml2)
+    # trips1 = sorted(trips1, key=lambda x: x['id'])
 
-    print(routes1)
+    for trip_id, trip_data in trips1.items():
+        print(trip_id,trip_data)
 
-    common_vehicles = set(routes1.keys()).intersection(routes2.keys())
-    different_routes = []
-
-    for vehicle_id in common_vehicles:
-        if routes1[vehicle_id] != routes2[vehicle_id]:
-            different_routes.append(vehicle_id)
-
-    return different_routes
 
 if __name__ == "__main__":
     file1 = "out_5_a.xml"
@@ -55,9 +48,5 @@ if __name__ == "__main__":
     xml1 = parse_xml(file1)
     xml2 = parse_xml(file2)
 
-    different_routes = compare_routes(xml1, xml2)
+    compare_routes(xml1, xml2)
 
-    if different_routes:
-        print("Different routes found for vehicles:", different_routes)
-    else:
-        print("Routes are the same in both XML files.")
