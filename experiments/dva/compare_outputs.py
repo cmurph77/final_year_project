@@ -12,6 +12,45 @@
 
 import xml.etree.ElementTree as ET
 import csv
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Strores the overal sim results for each trip size
+t1_average_tt = []
+t2_average_tt = []
+same_route_counts = []
+same_tt_counts = []
+
+print_results_to_conole = True
+
+
+
+def parse_data(data):
+    parsed_data = {}
+    for entry in data:
+        key = list(entry.keys())[0]
+        value = list(entry.values())[0]
+        parsed_data[key] = value
+    return parsed_data
+
+def graph_results(data1, data2,title,ylabel):
+    print(data1)
+    labels = list(data1.keys())
+    x = np.arange(len(labels))
+    width = 0.35
+
+    fig, ax = plt.subplots()
+    rects1 = ax.bar(x - width/2, list(data1.values()), width, label='Data 1')
+    rects2 = ax.bar(x + width/2, list(data2.values()), width, label='Data 2')
+
+    ax.set_xlabel('Trips')
+    ax.set_ylabel(ylabel)
+    ax.set_title(title)
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels)
+    ax.legend()
+
+    plt.show()
 
 def parse_xml(file_path):
     tree = ET.parse(file_path)
@@ -48,10 +87,10 @@ def extract_routes(xml):
         routes[vehicle_id] = extract_vehicle_data(vehicle)
     return routes
 
-def create_csv(trips1,trips2,output_filename,filename_1,filename_2):
+def create_csv(trips1,trips2,output_filename,filename_1,filename_2,trips):
     # Open a CSV file in write mode
-   print("\nComparing " + filename_1 + " & " + filename_2 + " -> output file: " + output_filename)
-   with open(output_filename, mode='w', newline='') as file:
+    if print_results_to_conole: print("\nComparing " + filename_1 + " & " + filename_2 + " -> output file: " + output_filename)
+    with open(output_filename, mode='w', newline='') as file:
         writer = csv.writer(file)
         trips1_name = filename_1
         trips2_name = filename_2
@@ -80,6 +119,9 @@ def create_csv(trips1,trips2,output_filename,filename_1,filename_2):
         # store the total trip times
         trip1_tot_tt = 0;
         trip2_tot_tt = 0;
+        same_route_count = 0
+        same_tt_count = 0
+    
 
         for i in range(0,(len(trips1))):
             
@@ -97,12 +139,14 @@ def create_csv(trips1,trips2,output_filename,filename_1,filename_2):
             # Check is the trip time is the same
             if trip1_tt == trip2_tt:
                 same_time = True
+                same_tt_count = same_tt_count + 1
             else :
                 same_time = False
 
             # Check if the route is the same
             if (trip1_rou == trip2_rou):
                 same_route = True
+                same_route_count = same_route_count + 1
             else: 
                 same_route = False
 
@@ -120,19 +164,25 @@ def create_csv(trips1,trips2,output_filename,filename_1,filename_2):
                             same_route,
                              ])
             
+        # store same rout and same time count
+        same_route_counts.append({trips:same_route_count})
+        same_tt_counts.append({trips:same_tt_count})
 
 
-        # Calculate Averages
+        # Calculate Average Travel Times
         trip1_avg_tt = trip1_tot_tt/num_trips;
+        t1_average_tt.append({trips:trip1_avg_tt})
         trip2_avg_tt = trip2_tot_tt/num_trips;
-        print("    " +filename_1 + ' Average Time: ' +  str(trip1_avg_tt))
-        print("    " +filename_2 + ' Average Time: ' +  str(trip2_avg_tt))
+        t2_average_tt.append({trips:trip2_avg_tt})
+        if print_results_to_conole:
+            print("    " +filename_1 + ' Average Time: ' +  str(trip1_avg_tt))
+            print("    " +filename_2 + ' Average Time: ' +  str(trip2_avg_tt))
+            print("    Same Route Count: " +str(same_route_count) + "/ " + trips)
+            print("    Same time Count: " + str(same_tt_count) + "/ " + trips)
 
+            print("    CSV file " + output_filename+" has been created.\n")
 
-        
-        print("    CSV file " + output_filename+" has been created.\n")
-
-def compare_output_files(output_filename, xml1, xml2,filename_1,filename_2):
+def compare_output_files(output_filename, xml1, xml2,filename_1,filename_2,trips):
     trips1 = extract_routes(xml1)
     trips2 = extract_routes(xml2)
     
@@ -145,31 +195,33 @@ def compare_output_files(output_filename, xml1, xml2,filename_1,filename_2):
 
     # print(sorted_trips2)
 
-    create_csv(sorted_trips1,sorted_trips2,output_filename,filename_1,filename_2)
+    create_csv(sorted_trips1,sorted_trips2,output_filename,filename_1,filename_2,trips)
 
     
-
-
 if __name__ == "__main__":
+
+    trip_files_directory = "sim_outputs/"
+    csv_files_destinations = "sim_compare_csv/"
+
+    print_results_to_conole = False
+
+    trips_array = ["500","750","1000","1250","1500"]
+
+    for trips in trips_array:
+        file1_name = "a_"+trips
+        xml1 = parse_xml(trip_files_directory+"astar/a_"+trips+"tr.out.xml")
+        file2_name = "d_"+trips
+        xml2 = parse_xml(trip_files_directory+"dijkstra/d_"+trips+"tr.out.xml")
+        compare_output_files(csv_files_destinations + "dva_"+trips+"tr_rand20.csv",xml1, xml2,file1_name,file2_name,trips)
+
+
+    print("\n\n")
+    print(t1_average_tt)
+    print(t2_average_tt)
+    # print(same_route_counts)
+    # print(same_tt_counts)
+    graph_results(t1_average_tt,t2_average_tt,"Average Travel Time", "Travel Time (seconds)")
+
+
     
     
-    file1_name = "a_500"
-    xml1 = parse_xml("sim_outputs/astar/a_500tr.out.xml")
-
-
-    file2_name = "d_500"
-    xml2 = parse_xml("sim_outputs/dijkstra/d_500tr.out.xml")
-
-    # compare_output_files('dva_500tr_rand20.csv',xml1, xml2,file1_name,file2_name)
-
-    file1_name = "a_1500"
-    xml1 = parse_xml("sim_outputs/astar/a_1500tr.out.xml")
-
-
-    file2_name = "d_1500"
-    xml2 = parse_xml("sim_outputs/dijkstra/d_1500tr.out.xml")
-
-    compare_output_files('dva_1500tr_rand20.csv',xml1, xml2,file1_name,file2_name)
-
-    
-
