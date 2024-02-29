@@ -33,15 +33,19 @@ def parse_data(data):
         parsed_data[key] = value
     return parsed_data
 
-def graph_results(data1, data2,title,ylabel):
-    print(data1)
-    labels = list(data1.keys())
+def graph_results(data1, data2,title,ylabel,labels):
+    # labels = list(data1.keys())
     x = np.arange(len(labels))
     width = 0.35
 
     fig, ax = plt.subplots()
-    rects1 = ax.bar(x - width/2, list(data1.values()), width, label='Data 1')
-    rects2 = ax.bar(x + width/2, list(data2.values()), width, label='Data 2')
+
+    values1 = [list(entry.values())[0] for entry in data1]
+    values2 = [list(entry.values())[0] for entry in data2]
+
+
+    rects1 = ax.bar(x - width/2, values1, width, label='Data 1')
+    rects2 = ax.bar(x + width/2, values2, width, label='Data 2')
 
     ax.set_xlabel('Trips')
     ax.set_ylabel(ylabel)
@@ -220,7 +224,7 @@ if __name__ == "__main__":
     print(t2_average_tt)
     # print(same_route_counts)
     # print(same_tt_counts)
-    graph_results(t1_average_tt,t2_average_tt,"Average Travel Time", "Travel Time (seconds)")
+    graph_results(t1_average_tt,t2_average_tt,"Average Travel Time", "Travel Time (seconds)",trips_array)
 
 
     
