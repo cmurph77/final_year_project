@@ -18,16 +18,7 @@ def create_edges_current_vehicles(active_vehicles,step):
 
         # print ("step: " + str(step)+ " | On edge: " + edge + ", there are " + str(len(vehicles_on_edge)))
 
-
-if __name__ == "__main__":
-
-    # Connect to SUMO simulation
-    traci.start(["sumo", "-c", "random_20.sumocfg"])
-
-    # Retrieve a list of all edge IDs
-    network_edges = traci.edge.getIDList()
-
-    # runs forever
+def run_simulation():
     run = True
     step = 0
     while run:
@@ -52,6 +43,15 @@ if __name__ == "__main__":
             print("NO MORE VEHICLES")
             run = False
 
+if __name__ == "__main__":
+
+    # Connect to SUMO simulation
+    traci.start(["sumo", "-c", "random_20.sumocfg"])
+
+    # Retrieve a list of all edge IDs
+    network_edges = traci.edge.getIDList()
+
+    run_simulation()
 
     # Close TraCI connection
     traci.close()
