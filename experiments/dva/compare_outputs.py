@@ -202,6 +202,36 @@ def compare_output_files(output_filename, xml1, xml2,filename_1,filename_2,trips
     create_csv(sorted_trips1,sorted_trips2,output_filename,filename_1,filename_2,trips)
 
     
+def create_overall_csv(out_filename, t1_average_tt, t2_average_tt,same_routes,same_times):
+    x_axis_keys = [list(entry.keys())[0] for entry in t1_average_tt]
+    t1_average_time_vals =  [list(entry.values())[0] for entry in t1_average_tt]
+    t2_average_time_vals =  [list(entry.values())[0] for entry in t2_average_tt]
+    same_routes_vals = [list(entry.values())[0] for entry in same_routes]
+    same_times_vals = [list(entry.values())[0] for entry in same_times]
+
+    # print(x_axis_keys)
+    # print(t1_average_time_vals)
+    # print(t2_average_time_vals)
+    # print(same_routes_vals)
+    # print(same_times_vals)
+
+    combined_data = zip(x_axis_keys, t1_average_time_vals, t2_average_time_vals, same_routes_vals,same_times_vals)
+    # Combine arrays into a list of tuples
+    # combined_data = list(zip(array1, array2, array3, array4))
+
+    # Transpose the data
+    transposed_data = np.array(combined_data).T.tolist()
+
+
+    # Write data to CSV file
+    with open(out_filename, mode='w', newline='') as file:
+        writer = csv.writer(file)
+        # Write header
+        writer.writerow(['Number of Trips', 't1_avg', 't2_avg', 'same_route?', 'same_time'])
+        # Write data columns
+        writer.writerows(transposed_data)
+
+
 if __name__ == "__main__":
 
     trip_files_directory = "sim_outputs/"
@@ -220,11 +250,16 @@ if __name__ == "__main__":
 
 
     print("\n\n")
-    print(t1_average_tt)
-    print(t2_average_tt)
+    # print(t1_average_tt)
+    # print(t2_average_tt)
     # print(same_route_counts)
     # print(same_tt_counts)
-    graph_results(t1_average_tt,t2_average_tt,"Average Travel Time", "Travel Time (seconds)",trips_array)
+
+
+
+    create_overall_csv((csv_files_destinations + "dva_rand20.compare.csv"), t1_average_tt, t2_average_tt,same_route_counts,same_tt_counts)
+
+    # graph_results(t1_average_tt,t2_average_tt,"Average Travel Time", "Travel Time (seconds)",trips_array)
 
 
     
