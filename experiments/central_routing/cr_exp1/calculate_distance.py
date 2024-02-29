@@ -1,6 +1,7 @@
 import xml.etree.ElementTree as ET
 
-def parse_xml(xml_file):
+# extracts distances from net file in the form { edge_id : distance }
+def get_distances_in_net(xml_file):
     tree = ET.parse(xml_file)
     root = tree.getroot()
     edge_lengths = {}
@@ -14,12 +15,11 @@ def parse_xml(xml_file):
 
     return edge_lengths
 
-def main():
-    xml_file = 'random_20.net.xml'  # Replace 'your_xml_file.xml' with the path to your XML file
-    edge_lengths = parse_xml(xml_file)
+
+
+
+if __name__ == "__main__":
+    edge_lengths = get_distances_in_net('random_20.net.xml' )
     print(edge_lengths)
     for edge,length in edge_lengths.items():
         print(str(edge) + "  " + str(length))
-
-if __name__ == "__main__":
-    main()
