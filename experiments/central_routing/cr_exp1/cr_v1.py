@@ -72,7 +72,6 @@ def output_congestion_matrix(congestion_matrix, filename):
             congestion_vals = cong_dict.values()
             writer.writerow(congestion_vals)
                 
-
 # This function produces a dict like { edge_id : Boolean of whether congestion exceeds set congestion threshold}                
 def update_live_congestion(current_congestion,congestion_threshold):
     live_congestion = {}
@@ -83,6 +82,20 @@ def update_live_congestion(current_congestion,congestion_threshold):
 
     return live_congestion
 
+
+def get_remaining_route(current_location, routes):
+    # Find the index of the current location in the routes list
+    try:
+        current_index = routes.index(current_location)
+    except ValueError:
+        print(f"Error: Current location '{current_location}' not found in the route.")
+        return []
+
+    # Extract the remaining route from the current location onwards
+    remaining_route = routes[current_index + 1:]
+
+    return remaining_route
+    
 def run_simulation():
     run = True
     step = 0
@@ -97,7 +110,15 @@ def run_simulation():
         current_congestion = create_congestion_dict( create_edges_current_traveltime())
         congestion_matrix.append(current_congestion)
         update_live_congestion(current_congestion,congestion_threshold)
+        
+        # ----- Analyse Each Vehicle  ------------------------------------------------
+        for vehicle_id in current_active_vehicles:
 
+            veh_location = traci.vehicle.getRoadID(vehicle_id)
+            # print(veh_location)
+            veh_route = traci.vehicle.getRoute(vehicle_id)
+            veh_remaing_route = get_remaining_route(veh_location,veh_route)
+            print("veh_id: " + str(vehicle_id) + ", location: " + str(veh_location)+ " | route = " + str(veh_route) + " | left = " + str(veh_remaing_route) )
 
         # ----- Development Code  ------------------------------------------------
 
