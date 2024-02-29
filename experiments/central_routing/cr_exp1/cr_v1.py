@@ -63,15 +63,18 @@ def run_simulation():
 
         current_active_vehicles = traci.vehicle.getIDList()
         active_veh_count = len(current_active_vehicles)
+        current_congestion = create_congestion_dict( create_edges_current_traveltime())
+        congestion_matrix.append(current_congestion)
+
 
         # ----- Development Code  ------------------------------------------------
 
-        if step == 343:
-            current_net_traveltime = create_edges_current_traveltime()
-            congestion = create_congestion_dict(current_net_traveltime)
+        # if step == 343:
+        #     # current_net_traveltime = create_edges_current_traveltime()
+        #     congestion = create_congestion_dict( create_edges_current_traveltime())
 
-            for edge_id, c in congestion.items():
-                print(str(edge_id) + "   " + str(c))
+        #     for edge_id, c in congestion.items():
+        #         print(str(edge_id) + "   " + str(c))
                 
 
         # print("edge 117 travel timme " + str(traci.edge.getTraveltime('117')) + ", vehicles on edge: " + str(len(traci.edge.getLastStepVehicleIDs('117'))))
@@ -97,14 +100,16 @@ def run_simulation():
 if __name__ == "__main__":
 
     # Connect to SUMO simulation
-    traci.start(["sumo-gui", "-c", "random_20.sumocfg"])
+    traci.start(["sumo", "-c", "random_20.sumocfg"])
     net_file = "random_20.net.xml"
 
     #  Set up Code
-    network_edges = traci.edge.getIDList()
-    baseline_edges_traveltime = create_edges_current_traveltime()
-    baseline_traveltimes = create_congestion_dict(baseline_edges_traveltime)
+    network_edges = traci.edge.getIDList()   # gets a list of edges in the network
+    baseline_edges_traveltime = create_edges_current_traveltime() # calculates the travel time for each edge 
+    baseline_traveltimes = create_congestion_dict(baseline_edges_traveltime) 
     network_distances = get_distances_in_net(net_file)
+    congestion_matrix = []
+
 
 
     # for edge, dist in network_distances.items():
