@@ -55,6 +55,7 @@ def get_distances_in_net(xml_file):
 
     return edge_lengths
 
+# outputs a csv file of the congestion matrix with edge_ids on top row and congestion at each time step below 
 def output_congestion_matrix(congestion_matrix, filename):
     with open(filename, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
@@ -71,8 +72,6 @@ def output_congestion_matrix(congestion_matrix, filename):
             congestion_vals = cong_dict.values()
             writer.writerow(congestion_vals)
                 
-
-
 
 def run_simulation():
     run = True
