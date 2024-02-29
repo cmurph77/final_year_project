@@ -72,16 +72,22 @@ def output_congestion_matrix(congestion_matrix, filename):
             congestion_vals = cong_dict.values()
             writer.writerow(congestion_vals)
                 
-def update_live_congestion(current_congestion):
+
+# This function produces a dict like { edge_id : Boolean of whether congestion exceeds set congestion threshold}                
+def update_live_congestion(current_congestion,congestion_threshold):
     live_congestion = {}
     for edge_id, congeestion_level in current_congestion.items():
         if congeestion_level > congestion_threshold: congested = True
         else: congested = f=False
         live_congestion[edge_id] = congested
 
+    return live_congestion
+
 def run_simulation():
     run = True
     step = 0
+    congestion_threshold = 2
+
     while run:
         t.simulationStep()    
         # Your simulation logic here  -------------------------------------------------
@@ -90,7 +96,7 @@ def run_simulation():
         active_veh_count = len(current_active_vehicles)
         current_congestion = create_congestion_dict( create_edges_current_traveltime())
         congestion_matrix.append(current_congestion)
-        update_live_congestion(current_congestion)
+        update_live_congestion(current_congestion,congestion_threshold)
 
 
         # ----- Development Code  ------------------------------------------------
@@ -137,7 +143,6 @@ if __name__ == "__main__":
     congestion_matrix = []
     live_congestion = {}
     # init_live_congestion()
-    congestion_threshold = 2
 
 
 
