@@ -3,6 +3,9 @@ import xml.etree.ElementTree as ET
 import csv
 
 
+def get_network_edges(net_file):
+    return traci.edge.getIDList()   # gets a list of edges in the network
+
 
 # creates a dict with { edge_id : edge_length }
 def set_edge_length_dict():
@@ -82,7 +85,7 @@ def update_live_congestion(current_congestion,congestion_threshold):
 
     return live_congestion
 
-
+ 
 def get_remaining_route(current_location, routes):
     # Find the index of the current location in the routes list
     try:
@@ -157,7 +160,8 @@ if __name__ == "__main__":
     net_file = "random_20.net.xml"
 
     #  Set up Code
-    network_edges = traci.edge.getIDList()   # gets a list of edges in the network
+    network_edges = get_network_edges(net_file)   # gets a list of edges in the network
+
     baseline_edges_traveltime = create_edges_current_traveltime() # calculates the travel time for each edge 
     baseline_traveltimes = create_congestion_dict(baseline_edges_traveltime) 
     network_distances = get_distances_in_net(net_file)

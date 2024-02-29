@@ -43,7 +43,7 @@ def main():
 
     # Plot column averages with column labels
     plot_column_averages(column_averages, column_labels)
-
+    
 if __name__ == "__main__":
     main()
 
