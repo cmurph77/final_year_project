@@ -1,5 +1,6 @@
 import traci as t,traci
 import xml.etree.ElementTree as ET
+import csv
 
 
 
@@ -53,6 +54,25 @@ def get_distances_in_net(xml_file):
             edge_lengths[edge_id] = length
 
     return edge_lengths
+
+def output_congestion_matrix(congestion_matrix, filename):
+    with open(filename, 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        
+        # Write header
+        # header = [list(entry.keys())[0] for entry in congestion_matrix[1]]
+        field_headers = congestion_matrix[0].keys()
+        # print(field_headers)
+        writer.writerow(field_headers)
+        
+        # i = 0
+        for cong_dict in congestion_matrix:
+                # congestion_vals = [list(entry.values())[0] for entry in cong_dict]
+            congestion_vals = cong_dict.values()
+            writer.writerow(congestion_vals)
+                
+
+
 
 def run_simulation():
     run = True
@@ -112,6 +132,8 @@ if __name__ == "__main__":
 
 
 
+
+
     # for edge, dist in network_distances.items():
     #     print(str(edge) + "  " + str(dist))
     
@@ -119,6 +141,11 @@ if __name__ == "__main__":
 
 
     run_simulation()
+
+    # Post proccessing
+    # print("step" + str(step))
+    output_congestion_matrix(congestion_matrix, 'congestion_matrix.csv')
+    
 
     # Close TraCI connection
     traci.close()
