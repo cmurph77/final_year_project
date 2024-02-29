@@ -22,13 +22,12 @@ def extract_vehicle_data(vehicle):
     depart = float(vehicle.attrib['depart'])
     arrival = float(vehicle.attrib['arrival'])
     travel_time = arrival - depart
-    # print(vehicle.attrib['depart'])
     
     vehicle_data = {
         'depart': depart,
         'arrival': arrival,
         'travel_time': travel_time,
-        'route': vehicle.find('route').attrib['edges']
+       'route': [route.attrib['edges'] for route in vehicle.findall('.//route[@edges]')]
     }
     return vehicle_data
 
@@ -37,7 +36,6 @@ def extract_routes(xml):
     i = 0
     for vehicle in xml.findall('vehicle'):
         i = i +1
-        print(vehicle.attrib['id'])
         vehicle_id = int(vehicle.attrib['id'])
         vehicle_id = vehicle.attrib['id']
         try:
@@ -94,7 +92,7 @@ def create_csv(trips1,trips2,output_filename,filename_1,filename_2):
 
             # Update the total trip times
             trip1_tot_tt = trip1_tot_tt + trip1_tt;
-            trip2_tot_tt = trip2_tot_tt + trip1_tt;
+            trip2_tot_tt = trip2_tot_tt + trip2_tt;
 
             # Check is the trip time is the same
             if trip1_tt == trip2_tt:
