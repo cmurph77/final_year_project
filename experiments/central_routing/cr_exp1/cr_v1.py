@@ -1,15 +1,15 @@
 import traci as t,traci
 
 
-
-def get_edge_length():
+# creates a dict with { edge_id : edge_length }
+def set_edge_length_dict():
     edge_lengths = {}
     for edge_id in network_edges:
         edge_lengths[edge_id] = traci.lane.getLength(edge_id)
 
     return edge_lengths
-#  Creates a dictionary with key = edge_id and value = number of vehicles on that edge
 
+# creates a dict with { edge_id : current_vehicles_on_edge }
 def create_edges_current_vehicles(active_vehicles,step):
     edges_current_vehicles = {}
     for edge in network_edges:
@@ -18,6 +18,17 @@ def create_edges_current_vehicles(active_vehicles,step):
 
         # print ("step: " + str(step)+ " | On edge: " + edge + ", there are " + str(len(vehicles_on_edge)))
 
+#  creates a dict with {edge_id : current_traveltime}
+def create_edges_current_traveltime():
+    edges_current_traveltime = {}
+    # print(network_edges)
+    for edge in network_edges:
+        current_traveltime = traci.edge.getTraveltime(edge)
+        # print(current_traveltime)
+        edges_current_traveltime[edge] = current_traveltime
+
+    return edges_current_traveltime
+        
 def run_simulation():
     run = True
     step = 0
@@ -26,13 +37,19 @@ def run_simulation():
         # Your simulation logic here  -------------------------------------------------
 
         current_active_vehicles = traci.vehicle.getIDList()
+        active_veh_count = len(current_active_vehicles)
 
-        if step == 400:
-            print("\nCurent Active Vehicle Count: " + str(len(current_active_vehicles)))
-            print("On step 250 so creating a congestion matrix")
-            edges_current_vehicles = create_edges_current_vehicles(current_active_vehicles,step)
+        # ----- Development Code  -------------------------------------------------
+        # print("edge 117 travel timme " + str(traci.edge.getTraveltime('117')) + ", vehicles on edge: " + str(len(traci.edge.getLastStepVehicleIDs('117'))))
+
+
+        # if step == 400:
+        #     print("\nCurent Active Vehicle Count: " +     print("edge 17 travel timme " + str(traci.edge.getTraveltime('17')) + ", ")
+
+        #     print("On step 250 so creating a congestion matrix")
+        #     edges_current_vehicles = create_edges_current_vehicles(current_active_vehicles,step)
             
-            # for item  in edges_current_vehicles: print(item)
+        #     # for item  in edges_current_vehicles: print(item)
 
 
 
@@ -47,11 +64,16 @@ if __name__ == "__main__":
 
     # Connect to SUMO simulation
     traci.start(["sumo", "-c", "random_20.sumocfg"])
+    net_file = "random_20.sumocfg"
 
-    # Retrieve a list of all edge IDs
+    #  Set up Code
     network_edges = traci.edge.getIDList()
+    baseline_edges_traveltime = create_edges_current_traveltime()
+    
 
-    run_simulation()
+
+
+    # run_simulation()
 
     # Close TraCI connection
     traci.close()
