@@ -72,6 +72,12 @@ def output_congestion_matrix(congestion_matrix, filename):
             congestion_vals = cong_dict.values()
             writer.writerow(congestion_vals)
                 
+def update_live_congestion(current_congestion):
+    live_congestion = {}
+    for edge_id, congeestion_level in current_congestion.items():
+        if congeestion_level > congestion_threshold: congested = True
+        else: congested = f=False
+        live_congestion[edge_id] = congested
 
 def run_simulation():
     run = True
@@ -84,6 +90,7 @@ def run_simulation():
         active_veh_count = len(current_active_vehicles)
         current_congestion = create_congestion_dict( create_edges_current_traveltime())
         congestion_matrix.append(current_congestion)
+        update_live_congestion(current_congestion)
 
 
         # ----- Development Code  ------------------------------------------------
@@ -128,6 +135,9 @@ if __name__ == "__main__":
     baseline_traveltimes = create_congestion_dict(baseline_edges_traveltime) 
     network_distances = get_distances_in_net(net_file)
     congestion_matrix = []
+    live_congestion = {}
+    # init_live_congestion()
+    congestion_threshold = 2
 
 
 
@@ -143,7 +153,7 @@ if __name__ == "__main__":
 
     # Post proccessing
     # print("step" + str(step))
-    output_congestion_matrix(congestion_matrix, 'congestion_matrix.csv')
+    # output_congestion_matrix(congestion_matrix, 'congestion_matrix.csv')
     
 
     # Close TraCI connection
