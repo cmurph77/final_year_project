@@ -1,7 +1,7 @@
 import traci as t,traci
 
 # Connect to SUMO simulation
-traci.start(["sumo-gui", "-c", "random_20.sumocfg"])
+traci.start(["sumo", "-c", "random_20.sumocfg"])
 
 
 

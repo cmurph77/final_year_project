@@ -12,6 +12,7 @@ command netgenerate --rand ----rand.iterations 20
 
 # for generating random trips
 python3 /opt/homebrew/share/sumo/tools/randomTrips.py -n <path-to-repo>/random_20.net.xml -e 100
+
 # for generating routes
 duarouter --trip-files=trips.trips.xml --net-file=random_20.net.xml --routing-algorithm astar --output-file=atar-routes.rou.xml
 duarouter --trip-files=trips.trips.xml --net-file=random_20.net.xml --routing-algorithm dijkstra --output-file=dijsktra-routes.rou.xml
