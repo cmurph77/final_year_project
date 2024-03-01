@@ -1,11 +1,11 @@
 import traci as t,traci
 import xml.etree.ElementTree as ET
 import csv
+import set_sumocgf 
 
 
 def get_network_edges(net_file):
     return traci.edge.getIDList()   # gets a list of edges in the network
-
 
 # creates a dict with { edge_id : edge_length }
 def set_edge_length_dict():
@@ -105,6 +105,7 @@ def get_remaining_route(current_location, routes):
 
     return remaining_route
     
+
 def run_simulation():
     run = True
     step = 0
@@ -112,46 +113,30 @@ def run_simulation():
 
     while run:
         t.simulationStep()    
-        # Your simulation logic here  -------------------------------------------------
+        # Get Current Time Step Variables  -------------------------------------------------
 
-        current_active_vehicles = traci.vehicle.getIDList()
-        active_veh_count = len(current_active_vehicles)
-        current_congestion = create_congestion_dict( create_edges_current_traveltime())
-        congestion_matrix.append(current_congestion)
-        live_congestion = update_live_congestion(current_congestion,congestion_threshold)
+        current_active_vehicles = traci.vehicle.getIDList()  # get a list of active vehicles
+        active_veh_count = len(current_active_vehicles)  
+        current_congestion = create_congestion_dict( create_edges_current_traveltime())   # get a congestion dict for time step
+        congestion_matrix.append(current_congestion)    # add to congestion matrix
+        live_congestion = update_live_congestion(current_congestion,congestion_threshold)  # get live congestion in boolean
         
         # ----- Analyse Each Vehicle  ------------------------------------------------
-        for vehicle_id in current_active_vehicles:
 
-            veh_location = traci.vehicle.getRoadID(vehicle_id)
-            # print(veh_location)
-            veh_route = traci.vehicle.getRoute(vehicle_id)
-            veh_remaing_route = get_remaining_route(veh_location,veh_route)
-            # print("veh_id: " + str(vehicle_id) + ", location: " + str(veh_location)+ " | route = " + str(veh_route) + " | left = " + str(veh_remaing_route) )
-            if congestion_on_route(veh_remaing_route,live_congestion):
-                print("Hit Congestion")
-                print("   veh_id: " + str(vehicle_id) + ", location: " + str(veh_location)+ " | route = " + str(veh_route) + " | left = " + str(veh_remaing_route) )
-                traci.vehicle.rerouteTraveltime(vehicle_id)
+        # for vehicle_id in current_active_vehicles:
+
+        #     veh_location = traci.vehicle.getRoadID(vehicle_id)
+        #     # print(veh_location)
+        #     veh_route = traci.vehicle.getRoute(vehicle_id)
+        #     veh_remaing_route = get_remaining_route(veh_location,veh_route)
+        #     # print("veh_id: " + str(vehicle_id) + ", location: " + str(veh_location)+ " | route = " + str(veh_route) + " | left = " + str(veh_remaing_route) )
+        #     if congestion_on_route(veh_remaing_route,live_congestion):
+        #         print("Hit Congestion")
+        #         print("   veh_id: " + str(vehicle_id) + ", location: " + str(veh_location)+ " | route = " + str(veh_route) + " | left = " + str(veh_remaing_route) )
+        #         traci.vehicle.rerouteTraveltime(vehicle_id)
+
+        
         # ----- Development Code  ------------------------------------------------
-
-        # if step == 343:
-        #     # current_net_traveltime = create_edges_current_traveltime()
-        #     congestion = create_congestion_dict( create_edges_current_traveltime())
-
-        #     for edge_id, c in congestion.items():
-        #         print(str(edge_id) + "   " + str(c))
-                
-
-        # print("edge 117 travel timme " + str(traci.edge.getTraveltime('117')) + ", vehicles on edge: " + str(len(traci.edge.getLastStepVehicleIDs('117'))))
-
-
-        # if step == 400:
-        #     print("\nCurent Active Vehicle Count: " +     print("edge 17 travel timme " + str(traci.edge.getTraveltime('17')) + ", ")
-
-        #     print("On step 250 so creating a congestion matrix")
-        #     edges_current_vehicles = create_edges_current_vehicles(current_active_vehicles,step)
-            
-        #     # for item  in edges_current_vehicles: print(item)
 
 
 
@@ -164,35 +149,33 @@ def run_simulation():
 
 if __name__ == "__main__":
 
+    # Set Up simulation configeration
+    path_to_sim_files = "sim_files/"
+    config_file = path_to_sim_files + "random_20.sumocfg"
+    net_file = "random_20.net.xml"
+    congestion_matric_output_file = 'output_files/congestion_matrix.csv'
+    set_sumocgf.set_netfile_value(config_file,net_file)
+    set_sumocgf.set_route_file_value(config_file,"../trip_files_random20net/50tr_rand20.trips.xml")
+    set_sumocgf.set_routing_algo_value(config_file,"astar")
+    set_sumocgf.set_output_file_value(config_file,"../output_files/new_output.out.xml")
+
     # Connect to SUMO simulation
-    traci.start(["sumo", "-c", "sim_files/random_20.sumocfg"])
-    net_file = "sim_files/random_20.net.xml"
+    traci.start(["sumo", "-c", config_file])
 
-    #  Set up Code
+    #  Set up Code for measuring congestion
     network_edges = get_network_edges(net_file)   # gets a list of edges in the network
-
     baseline_edges_traveltime = create_edges_current_traveltime() # calculates the travel time for each edge 
     baseline_traveltimes = create_congestion_dict(baseline_edges_traveltime) 
-    network_distances = get_distances_in_net(net_file)
+    network_distances = get_distances_in_net(path_to_sim_files + net_file)
     congestion_matrix = []
     live_congestion = {}
     # init_live_congestion()
 
-
-
-
-
-    # for edge, dist in network_distances.items():
-    #     print(str(edge) + "  " + str(dist))
-    
-
-
-
+    # Run the Simulation
     run_simulation()
 
-    # Post proccessing
-    # print("step" + str(step))
-    output_congestion_matrix(congestion_matrix, 'output_files/congestion_matrix.csv')
+    # Print out results
+    output_congestion_matrix(congestion_matrix, congestion_matric_output_file)
     
 
     # Close TraCI connection
