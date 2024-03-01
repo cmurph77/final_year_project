@@ -59,66 +59,29 @@ def extract_routes(xml):
         routes[vehicle_id] = extract_vehicle_data(vehicle)
     return routes
 
-def create_csv(trips1,output_filename,filename_1,filename_2,trips):
-    # Open a CSV file in write mode
-    # if print_results_to_conole: print("\nComparing " + filename_1 + " & " + filename_2 + " -> output file: " + output_filename)
-
-        trips1_name = filename_1
+def func_1(trips1,trips):
 
         num_trips = len(trips1)
-    
-
-
-        # size 
-        # store the total trip times
         trip1_tot_tt = 0;
-        trip2_tot_tt = 0;
-        same_route_count = 0
-        same_tt_count = 0
-    
-
         for i in range(0,(len(trips1))):
-            
-            # print("i:" + str(trips1[str(i)]))
-            # Load in data from the trips1 and 2
             trip1_tt = trips1[str(i)]['travel_time']
-
-            # Update the total trip times
             trip1_tot_tt = trip1_tot_tt + trip1_tt;
-
-  
-
-            
-        # store same rout and same time cou
-
 
         # Calculate Average Travel Times
         trip1_avg_tt = trip1_tot_tt/num_trips;
-        t1_average_tt.append({trips:trip1_avg_tt})
 
-        print("Average Time: " +  str(trip1_avg_tt))
-
-
-def compare_output_files(output_filename, xml1, filename_1,filename_2,trips):
-    trips1 = extract_routes(xml1)
-    
-    sorted_trips1 = dict(sorted(trips1.items()))
-    create_csv(sorted_trips1,output_filename,filename_1,filename_2,trips)
+        return trip1_avg_tt
 
 def get_avg(fname):
-    file1_name = "astar_tr_reg"
     xml1 = parse_xml(fname)
-    file2_name = "cr_tr"
-    xml2 = parse_xml(fname)
-    output_file_loc = "/Users/cianmurphy/code_directories/final_year_project/experiments/central_routing/test.csv"
-    compare_output_files(output_file_loc,xml1,file1_name,file2_name,str(1000))
+    trips1 = extract_routes(xml1)
+    return func_1(trips1,1000)
 
 
 if __name__ == "__main__":
-    print(" \n")
     file = "/Users/cianmurphy/code_directories/final_year_project/experiments/central_routing/cr_exp1/net_001_output_files/cr_1000tr.out.xml"
     avg = get_avg(file)
-    print(" \n")
+    print("Average: " + str(avg))
 
 
 
