@@ -3,7 +3,7 @@ import xml.etree.ElementTree as ET
 import csv
 import set_sumocgf 
 import random
-
+import argparse
 
 
 def get_network_edges(net_file):
@@ -164,10 +164,29 @@ def run_simulation(rereouting_prob,congestion_threshold,central_route):
             run = False
 
 if __name__ == "__main__":
+    
+    # Read in Arguments
+    # Create argument parser
+    parser = argparse.ArgumentParser(description='Description of your script.')
 
-    # Set Up simulation configeration
-    trip_count = 1500
-    algorithm = "astar"
+    # Add arguments
+    parser.add_argument('arg1', type=int, help='Description of argument 1')
+    # parser.add_argument('arg2', type=str, help='Description of argument 2')
+
+    # Parse arguments
+    args = parser.parse_args()
+
+    # Access parsed arguments
+    trip_count = args.arg1
+
+
+    # Sim Variables
+    congestion_threshold = 100
+    rereouting_prob = 25
+    central_route = True
+
+    # File Details 
+    algorithm = "cr"
     path_to_sim_files = "sim_files/"
     config_file = path_to_sim_files + "random_20.sumocfg"
     net_file = "random_20.net.xml"
@@ -190,10 +209,7 @@ if __name__ == "__main__":
     congestion_matrix = []
     live_congestion = {}
     
-    # Sim Variables
-    congestion_threshold = 100
-    rereouting_prob = 25
-    central_route = False
+
 
     # Run the Simulation
     run_simulation(congestion_threshold, rereouting_prob,central_route)

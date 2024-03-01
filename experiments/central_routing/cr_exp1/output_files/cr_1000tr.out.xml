@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-01 11:57:51 by Eclipse SUMO sumo Version 1.18.0
+<!-- generated on 2024-03-01 13:50:32 by Eclipse SUMO sumo Version 1.18.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -17,7 +17,7 @@
     </routing>
 
     <traci_server>
-        <remote-port value="55038"/>
+        <remote-port value="56215"/>
     </traci_server>
 
 </configuration>
@@ -1718,7 +1718,7 @@
 
     <vehicle id="260" depart="260.00" arrival="602.00">
         <routeDistribution>
-            <route replacedOnEdge="-138" replacedOnIndex="1" reason="traci:rerouteTraveltime" replacedAtTime="290.00" probability="0" edges="E5 -138 -25 17 38 -38"/>
+            <route replacedOnEdge="-138" replacedOnIndex="1" reason="traci:rerouteTraveltime" replacedAtTime="291.00" probability="0" edges="E5 -138 -25 17 38 -38"/>
             <route edges="E5 -138 -25 17 116 -313 -38"/>
         </routeDistribution>
     </vehicle>
@@ -1797,7 +1797,7 @@
     <vehicle id="477" depart="477.00" arrival="623.00">
         <routeDistribution>
             <route replacedOnEdge="-64" reason="traci:rerouteTraveltime" replacedAtTime="526.00" probability="0" edges="-64 116 -313 313"/>
-            <route replacedOnEdge="-64" reason="traci:rerouteTraveltime" replacedAtTime="562.00" probability="0" edges="-64 -13 15 119 E3 -319 313"/>
+            <route replacedOnEdge="-64" reason="traci:rerouteTraveltime" replacedAtTime="561.00" probability="0" edges="-64 -13 15 119 E3 -319 313"/>
             <route edges="-64 38 313"/>
         </routeDistribution>
     </vehicle>
@@ -4325,7 +4325,7 @@
     <vehicle id="876" depart="879.00" arrival="1396.00">
         <routeDistribution>
             <route replacedOnEdge="116" reason="traci:rerouteTraveltime" replacedAtTime="893.00" probability="0" edges="116 -313 319 -319"/>
-            <route replacedOnEdge="116" reason="traci:rerouteTraveltime" replacedAtTime="937.00" probability="0" edges="116 E1 -123 125 -126 -25 -9 11 E4 E3 -319"/>
+            <route replacedOnEdge="116" reason="traci:rerouteTraveltime" replacedAtTime="938.00" probability="0" edges="116 E1 -123 125 -126 -25 -9 11 E4 E3 -319"/>
             <route replacedOnEdge="116" reason="traci:rerouteTraveltime" replacedAtTime="974.00" probability="0" edges="116 -313 319 -319"/>
             <route replacedOnEdge="116" reason="traci:rerouteTraveltime" replacedAtTime="983.00" probability="0" edges="116 E1 -123 125 -126 -25 -9 11 E4 E3 -319"/>
             <route replacedOnEdge="116" reason="traci:rerouteTraveltime" replacedAtTime="1034.00" probability="0" edges="116 E1 -123 125 -126 -25 17 38 319 -319"/>
@@ -4391,7 +4391,7 @@
     <vehicle id="684" depart="684.00" arrival="1418.00">
         <routeDistribution>
             <route replacedOnEdge="-116" replacedOnIndex="1" reason="traci:rerouteTraveltime" replacedAtTime="742.00" probability="0" edges="-E1 -116 38 -117 119 E3"/>
-            <route replacedOnEdge="-116" replacedOnIndex="1" reason="traci:rerouteTraveltime" replacedAtTime="922.00" probability="0" edges="-E1 -116 -13 15 119 E3"/>
+            <route replacedOnEdge="-116" replacedOnIndex="1" reason="traci:rerouteTraveltime" replacedAtTime="921.00" probability="0" edges="-E1 -116 -13 15 119 E3"/>
             <route edges="-E1 -116 -13 -3 11 E4 E3"/>
         </routeDistribution>
     </vehicle>
@@ -4527,8 +4527,8 @@
 
     <vehicle id="288" depart="596.00" arrival="1441.00">
         <routeDistribution>
-            <route replacedOnEdge="117" reason="traci:rerouteTraveltime" replacedAtTime="827.00" probability="0" edges="117 -38 -17 25 138 -E5"/>
-            <route replacedOnEdge="117" reason="traci:rerouteTraveltime" replacedAtTime="843.00" probability="0" edges="117 -117 -15 -3 7 E5 -138 138 -E5"/>
+            <route replacedOnEdge="117" reason="traci:rerouteTraveltime" replacedAtTime="826.00" probability="0" edges="117 -38 -17 25 138 -E5"/>
+            <route replacedOnEdge="117" reason="traci:rerouteTraveltime" replacedAtTime="842.00" probability="0" edges="117 -117 -15 -3 7 E5 -138 138 -E5"/>
             <route replacedOnEdge="-117" replacedOnIndex="1" reason="traci:rerouteTraveltime" replacedAtTime="990.00" probability="0" edges="117 -117 -15 -3 9 25 138 -E5"/>
             <route edges="117 -117 -15 -3 7 E5 -138 138 -E5"/>
         </routeDistribution>
@@ -4635,7 +4635,7 @@
 
     <vehicle id="976" depart="976.00" arrival="1467.00">
         <routeDistribution>
-            <route replacedOnEdge="13" reason="traci:rerouteTraveltime" replacedAtTime="986.00" probability="0" edges="13 38 -117 117"/>
+            <route replacedOnEdge="13" reason="traci:rerouteTraveltime" replacedAtTime="987.00" probability="0" edges="13 38 -117 117"/>
             <route replacedOnEdge="13" reason="traci:rerouteTraveltime" replacedAtTime="1003.00" probability="0" edges="13 -13 -3 11 E4 -119 117"/>
             <route replacedOnEdge="13" reason="traci:rerouteTraveltime" replacedAtTime="1036.00" probability="0" edges="13 38 319 -E3 -119 117"/>
             <route edges="13 -13 15 117"/>
@@ -4762,7 +4762,7 @@
         <routeDistribution>
             <route replacedOnEdge="13" reason="traci:rerouteTraveltime" replacedAtTime="924.00" probability="0" edges="13 -13 15 119 -E4"/>
             <route replacedOnEdge="13" reason="traci:rerouteTraveltime" replacedAtTime="959.00" probability="0" edges="13 38 -117 119 -E4"/>
-            <route replacedOnEdge="13" reason="traci:rerouteTraveltime" replacedAtTime="1054.00" probability="0" edges="13 38 319 -E3 -E4"/>
+            <route replacedOnEdge="13" reason="traci:rerouteTraveltime" replacedAtTime="1050.00" probability="0" edges="13 38 319 -E3 -E4"/>
             <route replacedOnEdge="13" reason="traci:rerouteTraveltime" replacedAtTime="1281.00" probability="0" edges="13 -13 15 119 -E4"/>
             <route edges="13 -13 -3 11 E4 E3 -319 319 -E3 -E4"/>
         </routeDistribution>

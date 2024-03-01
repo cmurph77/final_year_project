@@ -178,11 +178,13 @@ def create_csv(trips1,trips2,output_filename,filename_1,filename_2,trips):
         t1_average_tt.append({trips:trip1_avg_tt})
         trip2_avg_tt = trip2_tot_tt/num_trips;
         t2_average_tt.append({trips:trip2_avg_tt})
+        # speed_up =  (float(t2_average_tt) / float(t1_average_tt))* 100
         if print_results_to_conole:
             print("    " +filename_1 + ' Average Time: ' +  str(trip1_avg_tt))
             print("    " +filename_2 + ' Average Time: ' +  str(trip2_avg_tt))
             print("    Same Route Count: " +str(same_route_count) + "/ " + trips)
-            print("    Same time Count: " + str(same_tt_count) + "/ " + trips)
+            print("    Same Time Count:  " + str(same_tt_count) + "/ " + trips)
+            # print("    PERECENTAGE AVG SPEED REDUCTION: " + str(t))
 
             print("    CSV file " + output_filename+" has been created.\n")
 
@@ -259,13 +261,14 @@ if __name__ == "__main__":
     # print(same_tt_counts)
 
     #  ------ SINGLE FILE COMPARRISION
-    trip_count = 1500
-    file1_name = "astar_" + str(trip_count) + "tr_reg"
-    xml1 = parse_xml("/Users/cianmurphy/code_directories/final_year_project/experiments/central_routing/cr_exp1/output_files/astar_" + str(trip_count) + "tr.out.xml")
-    file2_name = "cr_" + str(trip_count) + "tr"
-    xml2 = parse_xml("/Users/cianmurphy/code_directories/final_year_project/experiments/central_routing/cr_exp1/output_files/cr_" + str(trip_count) + "tr.out.xml")
-    output_file_loc = "/Users/cianmurphy/code_directories/final_year_project/experiments/central_routing/cr_exp1/output_files/" + str(trip_count) + "tr_crVa.csv"
-    compare_output_files(output_file_loc,xml1, xml2,file1_name,file2_name,str(trip_count))
+    trips_array = [500,1000,1250,1500]
+    for trip_count in trips_array:
+        file1_name = "astar_" + str(trip_count) + "tr_reg"
+        xml1 = parse_xml("/Users/cianmurphy/code_directories/final_year_project/experiments/central_routing/cr_exp1/output_files/astar_" + str(trip_count) + "tr.out.xml")
+        file2_name = "cr_" + str(trip_count) + "tr"
+        xml2 = parse_xml("/Users/cianmurphy/code_directories/final_year_project/experiments/central_routing/cr_exp1/output_files/cr_" + str(trip_count) + "tr.out.xml")
+        output_file_loc = "/Users/cianmurphy/code_directories/final_year_project/experiments/central_routing/cr_exp1/output_files/" + str(trip_count) + "tr_crVa.csv"
+        compare_output_files(output_file_loc,xml1, xml2,file1_name,file2_name,str(trip_count))
 
 
 
