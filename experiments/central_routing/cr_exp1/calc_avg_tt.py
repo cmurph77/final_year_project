@@ -79,9 +79,9 @@ def get_avg(fname):
 
 
 if __name__ == "__main__":
-    file = "/Users/cianmurphy/code_directories/final_year_project/experiments/central_routing/cr_exp1/net_001_output_files/cr_1000tr.out.xml"
+    file = "/Users/cianmurphy/code_directories/final_year_project/experiments/central_routing/cr_exp1/rand_20_output_files/cr_1500tr.out.xml"
     avg = get_avg(file)
-    print("Average: " + str(avg))
+    print("----------- AVERAGE: " + str(avg))
 
 
 

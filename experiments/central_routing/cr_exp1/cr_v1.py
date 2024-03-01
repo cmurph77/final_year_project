@@ -145,7 +145,7 @@ def run_simulation(rereouting_prob,congestion_threshold,central_route):
                     if random_num < rereouting_prob :
                         # print("Hit Congestion")
                         rerouted_count = rerouted_count + 1
-                        print("   veh_id: " + str(vehicle_id) + ", location: " + str(veh_location)+ " | route = " + str(veh_route) + " | left = " + str(veh_remaing_route) )
+                        # print("   veh_id: " + str(vehicle_id) + ", location: " + str(veh_location)+ " | route = " + str(veh_route) + " | left = " + str(veh_remaing_route) )
                         traci.vehicle.rerouteTraveltime(vehicle_id)
                         vehicle_rerouted[int(vehicle_id)] = True
 
@@ -158,8 +158,8 @@ def run_simulation(rereouting_prob,congestion_threshold,central_route):
         # -----------------------------------------------------------------------------
         step += 1
         if t.vehicle.getIDCount() == 0:
-            print("NO MORE VEHICLES")
-            print("REREOUT COUNT: " + str(rerouted_count))
+            # print("NO MORE VEHICLES")
+            # print("REREOUT COUNT: " + str(rerouted_count))
 
             run = False
 
@@ -171,23 +171,26 @@ if __name__ == "__main__":
 
     # Add arguments
     parser.add_argument('arg1', type=int, help='Description of argument 1')
-    # parser.add_argument('arg2', type=str, help='Description of argument 2')
+    parser.add_argument('arg2', type=int, help='Description of argument 2')
 
     # Parse arguments
     args = parser.parse_args()
 
     # Access parsed arguments
     trip_count = args.arg1
+    congestion_threshold = args.arg2
+    print(" ----------- CONGESTION_T: " + str(congestion_threshold) )
+
 
 
     # Sim Variables
-    congestion_threshold = 2
+    # congestion_threshold = 2
     rereouting_prob = 100
     central_route = True
     if central_route : algorithm = "cr"
     else : algorithm = 'astar'
     path_to_sim_files = "sim_files/"
-    network = "net_001"
+    network = "rand_20"
 
     # File Details 
     config_file = path_to_sim_files + network +".sumocfg"
@@ -199,11 +202,11 @@ if __name__ == "__main__":
     # # Sim output files
     congestion_matric_output_file = network+"_output_files/congestion_matrices/" + str(trip_count) + "tr_" + algorithm + "_cm.csv"
     output_file = "../"+network+"_output_files/" + algorithm + "_" + str(trip_count) + "tr.out.xml"
-    print("OUTPUT_FILE: " + output_file)
+    # print("OUTPUT_FILE: " + output_file)
     set_sumocgf.set_output_file_value(config_file,output_file)
 
     # # Connect to SUMO simulation
-    print("congfig_file: " + config_file)
+    # print("congfig_file: " + config_file)
     traci.start(["sumo", "-c", config_file])
 
     #  Set up Code for measuring congestion
