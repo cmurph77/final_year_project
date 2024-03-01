@@ -2,6 +2,8 @@ import traci as t,traci
 import xml.etree.ElementTree as ET
 import csv
 import set_sumocgf 
+import random
+
 
 
 def get_network_edges(net_file):
@@ -109,7 +111,10 @@ def get_remaining_route(current_location, routes):
 def run_simulation():
     run = True
     step = 0
-    congestion_threshold = 2
+    congestion_threshold = 50
+    vehicle_rerouted = [False] * trip_count
+    rerouted_count = 0
+
 
     while run:
         t.simulationStep()    
@@ -123,17 +128,22 @@ def run_simulation():
         
         # ----- Analyse Each Vehicle  ------------------------------------------------
 
-        # for vehicle_id in current_active_vehicles:
+        for vehicle_id in current_active_vehicles:
 
-        #     veh_location = traci.vehicle.getRoadID(vehicle_id)
-        #     # print(veh_location)
-        #     veh_route = traci.vehicle.getRoute(vehicle_id)
-        #     veh_remaing_route = get_remaining_route(veh_location,veh_route)
-        #     # print("veh_id: " + str(vehicle_id) + ", location: " + str(veh_location)+ " | route = " + str(veh_route) + " | left = " + str(veh_remaing_route) )
-        #     if congestion_on_route(veh_remaing_route,live_congestion):
-        #         print("Hit Congestion")
-        #         print("   veh_id: " + str(vehicle_id) + ", location: " + str(veh_location)+ " | route = " + str(veh_route) + " | left = " + str(veh_remaing_route) )
-        #         traci.vehicle.rerouteTraveltime(vehicle_id)
+            # Get Vehcile Details
+            veh_location = traci.vehicle.getRoadID(vehicle_id)
+            veh_route = traci.vehicle.getRoute(vehicle_id)
+            veh_remaing_route = get_remaining_route(veh_location,veh_route)
+
+            # Check if there is congestion on the route
+            if congestion_on_route(veh_remaing_route,live_congestion):
+                # if vehicle_rerouted[int(vehicle_id)] == False :
+                if True :
+                    print("Hit Congestion")
+                    rerouted_count = rerouted_count + 1
+                    print("   veh_id: " + str(vehicle_id) + ", location: " + str(veh_location)+ " | route = " + str(veh_route) + " | left = " + str(veh_remaing_route) )
+                    traci.vehicle.rerouteTraveltime(vehicle_id)
+                    vehicle_rerouted[int(vehicle_id)] = True
 
         
         # ----- Development Code  ------------------------------------------------
@@ -145,6 +155,8 @@ def run_simulation():
         step += 1
         if t.vehicle.getIDCount() == 0:
             print("NO MORE VEHICLES")
+            print("REREOUT COUNT: " + str(rerouted_count))
+
             run = False
 
 if __name__ == "__main__":
@@ -154,6 +166,7 @@ if __name__ == "__main__":
     config_file = path_to_sim_files + "random_20.sumocfg"
     net_file = "random_20.net.xml"
     congestion_matric_output_file = 'output_files/congestion_matrices/500tr_cr_cm.csv'
+    trip_count = 500
     set_sumocgf.set_netfile_value(config_file,net_file)
     set_sumocgf.set_route_file_value(config_file,"../trip_files_random20net/500tr_rand20.trips.xml")
     set_sumocgf.set_routing_algo_value(config_file,"astar")
@@ -169,6 +182,7 @@ if __name__ == "__main__":
     network_distances = get_distances_in_net(path_to_sim_files + net_file)
     congestion_matrix = []
     live_congestion = {}
+    
 
     # Run the Simulation
     run_simulation()
