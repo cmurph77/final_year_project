@@ -115,7 +115,7 @@ def run_simulation():
     rereouting_prob = 75
     vehicle_rerouted = [False] * trip_count
     rerouted_count = 0
-    central_route = False
+    central_route = True
 
 
     while run:
@@ -130,25 +130,25 @@ def run_simulation():
         
         # ----- Analyse Each Vehicle  ------------------------------------------------
 
-        # if central_route == True:
-        #     for vehicle_id in current_active_vehicles:
+        if central_route == True:
+            for vehicle_id in current_active_vehicles:
 
-        #         # Get Vehcile Details
-        #         veh_location = traci.vehicle.getRoadID(vehicle_id)
-        #         veh_route = traci.vehicle.getRoute(vehicle_id)
-        #         veh_remaing_route = get_remaining_route(veh_location,veh_route)
+                # Get Vehcile Details
+                veh_location = traci.vehicle.getRoadID(vehicle_id)
+                veh_route = traci.vehicle.getRoute(vehicle_id)
+                veh_remaing_route = get_remaining_route(veh_location,veh_route)
 
-        #         # Check if there is congestion on the route
-        #         if congestion_on_route(veh_remaing_route,live_congestion):
-        #             # if vehicle_rerouted[int(vehicle_id)] == False :
-        #             random_num = random.randint(1,100)
-        #             print("random_num: " + str(random_num))
-        #             if random_num > rereouting_prob :
-        #                 # print("Hit Congestion")
-        #                 rerouted_count = rerouted_count + 1
-        #                 print("   veh_id: " + str(vehicle_id) + ", location: " + str(veh_location)+ " | route = " + str(veh_route) + " | left = " + str(veh_remaing_route) )
-        #                 traci.vehicle.rerouteTraveltime(vehicle_id)
-        #                 vehicle_rerouted[int(vehicle_id)] = True
+                # Check if there is congestion on the route
+                if congestion_on_route(veh_remaing_route,live_congestion):
+                    # if vehicle_rerouted[int(vehicle_id)] == False :
+                    random_num = random.randint(1,100)
+                    print("random_num: " + str(random_num))
+                    if random_num > rereouting_prob :
+                        # print("Hit Congestion")
+                        rerouted_count = rerouted_count + 1
+                        print("   veh_id: " + str(vehicle_id) + ", location: " + str(veh_location)+ " | route = " + str(veh_route) + " | left = " + str(veh_remaing_route) )
+                        traci.vehicle.rerouteTraveltime(vehicle_id)
+                        vehicle_rerouted[int(vehicle_id)] = True
 
         
         # ----- Development Code  ------------------------------------------------
