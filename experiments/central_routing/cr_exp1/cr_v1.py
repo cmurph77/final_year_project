@@ -188,35 +188,37 @@ if __name__ == "__main__":
     # File Details 
     algorithm = "cr"
     path_to_sim_files = "sim_files/"
-    config_file = path_to_sim_files + "random_20.sumocfg"
-    net_file = "random_20.net.xml"
+    network = "grid_10"
+    config_file = path_to_sim_files + network +".sumocfg"
+    net_file = network + ".net.xml"
     set_sumocgf.set_netfile_value(config_file,net_file)
-    set_sumocgf.set_route_file_value(config_file,"../trip_files_random20net/" + str(trip_count) + "tr_rand20.trips.xml")
+    set_sumocgf.set_route_file_value(config_file,"../trip_files_"+network+"/" + str(trip_count) + "tr_"+network+".trips.xml")
     set_sumocgf.set_routing_algo_value(config_file,"astar")
 
-    # Sim output files
-    congestion_matric_output_file = "output_files/congestion_matrices/" + str(trip_count) + "tr_" + algorithm + "_cm.csv"
-    set_sumocgf.set_output_file_value(config_file,"../output_files/" + algorithm + "_" + str(trip_count) + "tr.out.xml")
+    # # Sim output files
+    congestion_matric_output_file = network+"_output_files/congestion_matrices/" + str(trip_count) + "tr_" + algorithm + "_cm.csv"
+    set_sumocgf.set_output_file_value(config_file,"../"+network+"_output_files/" + algorithm + "_" + str(trip_count) + "tr.out.xml")
 
-    # Connect to SUMO simulation
-    traci.start(["sumo", "-c", config_file])
+    # # Connect to SUMO simulation
+    print("congfig_file: " + config_file)
+    traci.start(["sumo-gui", "-c", config_file])
 
-    #  Set up Code for measuring congestion
-    network_edges = get_network_edges(net_file)   # gets a list of edges in the network
-    baseline_edges_traveltime = create_edges_current_traveltime() # calculates the travel time for each edge 
-    baseline_traveltimes = create_congestion_dict(baseline_edges_traveltime) 
-    network_distances = get_distances_in_net(path_to_sim_files + net_file)
-    congestion_matrix = []
-    live_congestion = {}
+    # #  Set up Code for measuring congestion
+    # network_edges = get_network_edges(net_file)   # gets a list of edges in the network
+    # baseline_edges_traveltime = create_edges_current_traveltime() # calculates the travel time for each edge 
+    # baseline_traveltimes = create_congestion_dict(baseline_edges_traveltime) 
+    # network_distances = get_distances_in_net(path_to_sim_files + net_file)
+    # congestion_matrix = []
+    # live_congestion = {}
     
 
 
-    # Run the Simulation
-    run_simulation(congestion_threshold, rereouting_prob,central_route)
+    # # Run the Simulation
+    # run_simulation(congestion_threshold, rereouting_prob,central_route)
 
-    # Print out results
-    output_congestion_matrix(congestion_matrix, congestion_matric_output_file)
+    # # Print out results
+    # output_congestion_matrix(congestion_matrix, congestion_matric_output_file)
     
 
     # Close TraCI connection
-    traci.close()
+    # traci.close()
