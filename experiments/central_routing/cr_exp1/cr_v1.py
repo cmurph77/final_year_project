@@ -3,7 +3,7 @@ import xml.etree.ElementTree as ET
 import csv
 import set_sumocgf 
 import random
-import argparse
+
 
 
 def get_network_edges(net_file):
@@ -108,13 +108,13 @@ def get_remaining_route(current_location, routes):
     return remaining_route
     
 
-def run_simulation(rereouting_prob,congestion_threshold,central_route):
+def run_simulation():
     run = True
     step = 0
+    congestion_threshold = 100
+    rereouting_prob = 75
     vehicle_rerouted = [False] * trip_count
     rerouted_count = 0
-    
-
 
 
     while run:
@@ -129,25 +129,24 @@ def run_simulation(rereouting_prob,congestion_threshold,central_route):
         
         # ----- Analyse Each Vehicle  ------------------------------------------------
 
-        if central_route == True:
-            for vehicle_id in current_active_vehicles:
+        for vehicle_id in current_active_vehicles:
 
-                # Get Vehcile Details
-                veh_location = traci.vehicle.getRoadID(vehicle_id)
-                veh_route = traci.vehicle.getRoute(vehicle_id)
-                veh_remaing_route = get_remaining_route(veh_location,veh_route)
+            # Get Vehcile Details
+            veh_location = traci.vehicle.getRoadID(vehicle_id)
+            veh_route = traci.vehicle.getRoute(vehicle_id)
+            veh_remaing_route = get_remaining_route(veh_location,veh_route)
 
-                # Check if there is congestion on the route
-                if congestion_on_route(veh_remaing_route,live_congestion):
-                    # if vehicle_rerouted[int(vehicle_id)] == False :
-                    random_num = random.randint(1,100)
-                    # print("random_num: " + str(random_num))
-                    if random_num < rereouting_prob :
-                        # print("Hit Congestion")
-                        rerouted_count = rerouted_count + 1
-                        print("   veh_id: " + str(vehicle_id) + ", location: " + str(veh_location)+ " | route = " + str(veh_route) + " | left = " + str(veh_remaing_route) )
-                        traci.vehicle.rerouteTraveltime(vehicle_id)
-                        vehicle_rerouted[int(vehicle_id)] = True
+            # Check if there is congestion on the route
+            if congestion_on_route(veh_remaing_route,live_congestion):
+                # if vehicle_rerouted[int(vehicle_id)] == False :
+                random_num = random.randint(1,100)
+                print("random_num: " + str(random_num))
+                if random_num > rereouting_prob :
+                    # print("Hit Congestion")
+                    rerouted_count = rerouted_count + 1
+                    print("   veh_id: " + str(vehicle_id) + ", location: " + str(veh_location)+ " | route = " + str(veh_route) + " | left = " + str(veh_remaing_route) )
+                    traci.vehicle.rerouteTraveltime(vehicle_id)
+                    vehicle_rerouted[int(vehicle_id)] = True
 
         
         # ----- Development Code  ------------------------------------------------
@@ -164,46 +163,19 @@ def run_simulation(rereouting_prob,congestion_threshold,central_route):
             run = False
 
 if __name__ == "__main__":
-    
-    # Read in Arguments
-    # Create argument parser
-    parser = argparse.ArgumentParser(description='Description of your script.')
 
-    # Add arguments
-    parser.add_argument('arg1', type=int, help='Description of argument 1')
-    # parser.add_argument('arg2', type=str, help='Description of argument 2')
-
-    # Parse arguments
-    args = parser.parse_args()
-
-    # Access parsed arguments
-    trip_count = args.arg1
-
-
-    # Sim Variables
-    congestion_threshold = 2
-    rereouting_prob = 100
-    central_route = True
-    if central_route : algorithm = "cr"
-    else : algorithm = 'astar'
+    # Set Up simulation configeration
     path_to_sim_files = "sim_files/"
-    network = "net_001"
-
-    # File Details 
-    config_file = path_to_sim_files + network +".sumocfg"
-    net_file = network + ".net.xml"
+    config_file = path_to_sim_files + "random_20.sumocfg"
+    net_file = "random_20.net.xml"
+    congestion_matric_output_file = 'output_files/congestion_matrices/500tr_cr_cm.csv'
+    trip_count = 500
     set_sumocgf.set_netfile_value(config_file,net_file)
-    set_sumocgf.set_route_file_value(config_file,"../trip_files_"+network+"/" + str(trip_count) + "tr_"+network+".trips.xml")
+    set_sumocgf.set_route_file_value(config_file,"../trip_files_random20net/500tr_rand20.trips.xml")
     set_sumocgf.set_routing_algo_value(config_file,"astar")
+    set_sumocgf.set_output_file_value(config_file,"../output_files/cr_500tr.out.xml")
 
-    # # Sim output files
-    congestion_matric_output_file = network+"_output_files/congestion_matrices/" + str(trip_count) + "tr_" + algorithm + "_cm.csv"
-    output_file = "../"+network+"_output_files/" + algorithm + "_" + str(trip_count) + "tr.out.xml"
-    print("OUTPUT_FILE: " + output_file)
-    set_sumocgf.set_output_file_value(config_file,output_file)
-
-    # # Connect to SUMO simulation
-    print("congfig_file: " + config_file)
+    # Connect to SUMO simulation
     traci.start(["sumo", "-c", config_file])
 
     #  Set up Code for measuring congestion
@@ -215,9 +187,8 @@ if __name__ == "__main__":
     live_congestion = {}
     
 
-
     # Run the Simulation
-    run_simulation(congestion_threshold, rereouting_prob,central_route)
+    run_simulation()
 
     # Print out results
     output_congestion_matrix(congestion_matrix, congestion_matric_output_file)
