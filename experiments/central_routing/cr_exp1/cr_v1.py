@@ -165,8 +165,8 @@ def run_simulation():
 if __name__ == "__main__":
 
     # Connect to SUMO simulation
-    traci.start(["sumo", "-c", "random_20.sumocfg"])
-    net_file = "random_20.net.xml"
+    traci.start(["sumo", "-c", "sim_files/random_20.sumocfg"])
+    net_file = "sim_files/random_20.net.xml"
 
     #  Set up Code
     network_edges = get_network_edges(net_file)   # gets a list of edges in the network
@@ -192,7 +192,7 @@ if __name__ == "__main__":
 
     # Post proccessing
     # print("step" + str(step))
-    output_congestion_matrix(congestion_matrix, 'congestion_matrix.csv')
+    output_congestion_matrix(congestion_matrix, 'output_files/congestion_matrix.csv')
     
 
     # Close TraCI connection
