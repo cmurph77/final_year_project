@@ -181,8 +181,8 @@ if __name__ == "__main__":
 
 
     # Sim Variables
-    congestion_threshold = 100
-    rereouting_prob = 25
+    congestion_threshold = 50
+    rereouting_prob = 50
     central_route = True
 
     # File Details 
