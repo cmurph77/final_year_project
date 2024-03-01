@@ -111,7 +111,8 @@ def get_remaining_route(current_location, routes):
 def run_simulation():
     run = True
     step = 0
-    congestion_threshold = 50
+    congestion_threshold = 100
+    rereouting_prob = 75
     vehicle_rerouted = [False] * trip_count
     rerouted_count = 0
 
@@ -140,8 +141,8 @@ def run_simulation():
                 # if vehicle_rerouted[int(vehicle_id)] == False :
                 random_num = random.randint(1,100)
                 print("random_num: " + str(random_num))
-                if random_num > 50 :
-                    print("Hit Congestion")
+                if random_num > rereouting_prob :
+                    # print("Hit Congestion")
                     rerouted_count = rerouted_count + 1
                     print("   veh_id: " + str(vehicle_id) + ", location: " + str(veh_location)+ " | route = " + str(veh_route) + " | left = " + str(veh_remaing_route) )
                     traci.vehicle.rerouteTraveltime(vehicle_id)
