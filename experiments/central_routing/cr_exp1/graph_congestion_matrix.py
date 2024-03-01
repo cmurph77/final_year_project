@@ -1,5 +1,6 @@
 import csv
 import matplotlib.pyplot as plt
+import argparse
 
 def calculate_column_averages(csv_file):
     # Initialize lists to store column data
@@ -20,20 +21,34 @@ def calculate_column_averages(csv_file):
 
     return column_averages
 
-def plot_column_averages(column_averages, column_labels):
+def plot_column_averages(column_averages, column_labels,trip_count,net):
     # Plot the column averages
     plt.figure(figsize=(8, 6))
     plt.bar(range(len(column_averages)), column_averages, color='skyblue')
     plt.xlabel('Columns')
     plt.ylabel('Average')
-    plt.title('Average of Each Column')
+    plt.title('Average Congestion on each Road for ' + str(trip_count) + ' trips on Network: ' + net)
     plt.xticks(range(len(column_averages)), column_labels)
     plt.grid(axis='y')
     plt.show()
 
 def main():
-    # Replace 'sample_data.csv' with the path to your CSV file
-    csv_file = 'no_rerouting_50tr_cm.csv'
+    
+    # Create argument parser
+    parser = argparse.ArgumentParser(description='Description of your script.')
+
+    # Add arguments
+    parser.add_argument('arg1', type=str, help='Description of argument 1')
+    parser.add_argument('arg2', type=int, help='Description of argument 2')
+
+    # Parse arguments
+    args = parser.parse_args()
+
+    # # Access parsed arguments
+    net = args.arg1
+    trip_count = args.arg2
+
+    csv_file = "/Users/cianmurphy/code_directories/final_year_project/experiments/central_routing/cr_exp1/"+net+"_output_files/congestion_matrices/"+str(trip_count)+"tr_cr_cm.csv"
     column_averages = calculate_column_averages(csv_file)
     
     # Extract column labels from the header row
@@ -42,7 +57,7 @@ def main():
         column_labels = next(reader)
 
     # Plot column averages with column labels
-    plot_column_averages(column_averages, column_labels)
+    plot_column_averages(column_averages, column_labels,trip_count,net)
 
 if __name__ == "__main__":
     main()
