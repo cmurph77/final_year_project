@@ -181,10 +181,10 @@ if __name__ == "__main__":
 
 
     # Sim Variables
-    congestion_threshold = 5
+    congestion_threshold = 2
     rereouting_prob = 100
-    central_route = False
-    algorithm = "astar"
+    central_route = True
+    algorithm = "cr"
     path_to_sim_files = "sim_files/"
     network = "grid_10"
 
