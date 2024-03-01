@@ -1,8 +1,8 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="random_20.net.xml" />
-        <route-files value="../trip_files_random20net/1500tr_rand20.trips.xml" />
+        <net-file value="rand_20.net.xml" />
+        <route-files value="../trip_files_rand_20/1500tr_rand_20.trips.xml" />
 
     </input>
 
@@ -12,7 +12,7 @@
 
 
    <output>
-        <vehroute-output value="../output_files/cr_1500tr.out.xml" />
+        <vehroute-output value="../rand_20_output_files/cr_1500tr.out.xml" />
     </output>
 
 </configuration>

@@ -181,14 +181,14 @@ if __name__ == "__main__":
 
 
     # Sim Variables
-    congestion_threshold = 4
+    congestion_threshold = 5
     rereouting_prob = 100
-    central_route = True
-
-    # File Details 
-    algorithm = "cr"
+    central_route = False
+    algorithm = "astar"
     path_to_sim_files = "sim_files/"
     network = "grid_10"
+
+    # File Details 
     config_file = path_to_sim_files + network +".sumocfg"
     net_file = network + ".net.xml"
     set_sumocgf.set_netfile_value(config_file,net_file)
@@ -197,7 +197,9 @@ if __name__ == "__main__":
 
     # # Sim output files
     congestion_matric_output_file = network+"_output_files/congestion_matrices/" + str(trip_count) + "tr_" + algorithm + "_cm.csv"
-    set_sumocgf.set_output_file_value(config_file,"../"+network+"_output_files/" + algorithm + "_" + str(trip_count) + "tr.out.xml")
+    output_file = "../"+network+"_output_files/" + algorithm + "_" + str(trip_count) + "tr.out.xml"
+    print("OUTPUT_FILE: " + output_file)
+    set_sumocgf.set_output_file_value(config_file,output_file)
 
     # # Connect to SUMO simulation
     print("congfig_file: " + config_file)

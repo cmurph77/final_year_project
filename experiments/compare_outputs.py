@@ -1,19 +1,9 @@
-# trips = {
-#     1: {'depart': 1.0, 'arrival': 73.0, 'travel_time': 72.0, 'route': 'C8C9 C9C8 C8C7 C7C6 C6C5 C5C4 C4C3 C3D3'},
-#     2: {'depart': 5.0, 'arrival': 45.0, 'travel_time': 40.0, 'route': 'A2B2 B2B3 B3B4 B4B5 B5B6 B6B7 B7B8 B8B9 B9C9'},
-#     3: {'depart': 3.0, 'arrival': 55.0, 'travel_time': 52.0, 'route': 'X1Y1 Y1Z1 Z1Z2 Z2Z3 Z3Z4 Z4Z5 Z5Z6 Z6Z7 Z7Z8 Z8Z9'}
-# }
-# 
-# Example of hwo to access
-# 
-# trip_id = 1
-# travel_time = trips[trip_id]['travel_time']
-
-
 import xml.etree.ElementTree as ET
 import csv
 import matplotlib.pyplot as plt
 import numpy as np
+import argparse
+
 
 # Strores the overal sim results for each trip size
 t1_average_tt = []
@@ -236,39 +226,34 @@ def create_overall_csv(out_filename, t1_average_tt, t2_average_tt,same_routes,sa
 
 if __name__ == "__main__":
 
-    #  ------- FOR BATCH COMPARING FILES ----------------
-    # trip_files_directory = "sim_outputs/"
-    # csv_files_destinations = "sim_compare_csv/"
+    # Read in Arguments
+    # Create argument parser
+    parser = argparse.ArgumentParser(description='Description of your script.')
 
-    # print_results_to_conole = False
+    # Add arguments
+    parser.add_argument('arg1', type=str, help='Description of argument 1')
+    # parser.add_argument('arg2', type=str, help='Description of argument 2')
 
-    # trips_array = ["500","750","1000","1250","1500"]
+    # Parse arguments
+    args = parser.parse_args()
 
-    # for trips in trips_array:
-    #     file1_name = "a_"+trips
-    #     xml1 = parse_xml(trip_files_directory+"astar/a_"+trips+"tr.out.xml")
-    #     file2_name = "d_"+trips
-    #     xml2 = parse_xml(trip_files_directory+"dijkstra/d_"+trips+"tr.out.xml")
-    #     compare_output_files(csv_files_destinations + "dva_"+trips+"tr_rand20.csv",xml1, xml2,file1_name,file2_name,trips)
-        # create_overall_csv((csv_files_destinations + "dva_rand20.compare.csv"), t1_average_tt, t2_average_tt,same_route_counts,same_tt_counts)
-   
-    # graph_results(t1_average_tt,t2_average_tt,"Average Travel Time", "Travel Time (seconds)",trips_array)
-
-    print("\n\n")
-    # print(t1_average_tt)
-    # print(t2_average_tt)
-    # print(same_route_counts)
-    # print(same_tt_counts)
+    # Access parsed arguments
+    network = args.arg1
 
     #  ------ SINGLE FILE COMPARRISION
     trips_array = [500,1000,1250,1500]
+    # network = "rand_20"
+    print(" \n\n---------- PRINTING RESULTS FOR NETWORK: " + network + "-------------")
+
     for trip_count in trips_array:
         file1_name = "astar_" + str(trip_count) + "tr_reg"
-        xml1 = parse_xml("/Users/cianmurphy/code_directories/final_year_project/experiments/central_routing/cr_exp1/output_files/astar_" + str(trip_count) + "tr.out.xml")
+        xml1 = parse_xml("/Users/cianmurphy/code_directories/final_year_project/experiments/central_routing/cr_exp1/"+network+"_output_files/astar_" + str(trip_count) + "tr.out.xml")
         file2_name = "cr_" + str(trip_count) + "tr"
-        xml2 = parse_xml("/Users/cianmurphy/code_directories/final_year_project/experiments/central_routing/cr_exp1/output_files/cr_" + str(trip_count) + "tr.out.xml")
-        output_file_loc = "/Users/cianmurphy/code_directories/final_year_project/experiments/central_routing/cr_exp1/output_files/" + str(trip_count) + "tr_crVa.csv"
+        xml2 = parse_xml("/Users/cianmurphy/code_directories/final_year_project/experiments/central_routing/cr_exp1/"+network+"_output_files/cr_" + str(trip_count) + "tr.out.xml")
+        output_file_loc = "/Users/cianmurphy/code_directories/final_year_project/experiments/central_routing/cr_exp1/"+network+"_output_files/" + str(trip_count) + "tr_crVa.csv"
         compare_output_files(output_file_loc,xml1, xml2,file1_name,file2_name,str(trip_count))
+
+    # graph_results(t1_average_tt,t2_average_tt,"Average Travel Time", "Travel Time (seconds)",trips_array)
 
 
 
