@@ -33,7 +33,7 @@ def plot_column_averages(column_averages, column_labels):
 
 def main():
     # Replace 'sample_data.csv' with the path to your CSV file
-    csv_file = 'congestion_matrix.csv'
+    csv_file = 'no_rerouting_50tr_cm.csv'
     column_averages = calculate_column_averages(csv_file)
     
     # Extract column labels from the header row
@@ -43,7 +43,7 @@ def main():
 
     # Plot column averages with column labels
     plot_column_averages(column_averages, column_labels)
-    
+
 if __name__ == "__main__":
     main()
 

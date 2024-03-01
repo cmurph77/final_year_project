@@ -85,13 +85,19 @@ def update_live_congestion(current_congestion,congestion_threshold):
 
     return live_congestion
 
- 
+def congestion_on_route(route, live_congestion):
+    for edge_id in route:
+        congestion = live_congestion[edge_id]
+        if congestion: return True
+
+    return False
+
 def get_remaining_route(current_location, routes):
     # Find the index of the current location in the routes list
     try:
         current_index = routes.index(current_location)
     except ValueError:
-        print(f"Error: Current location '{current_location}' not found in the route.")
+        # print(f"Error: Current location '{current_location}' not found in the route.")
         return []
 
     # Extract the remaining route from the current location onwards
@@ -112,7 +118,7 @@ def run_simulation():
         active_veh_count = len(current_active_vehicles)
         current_congestion = create_congestion_dict( create_edges_current_traveltime())
         congestion_matrix.append(current_congestion)
-        update_live_congestion(current_congestion,congestion_threshold)
+        live_congestion = update_live_congestion(current_congestion,congestion_threshold)
         
         # ----- Analyse Each Vehicle  ------------------------------------------------
         for vehicle_id in current_active_vehicles:
@@ -121,8 +127,11 @@ def run_simulation():
             # print(veh_location)
             veh_route = traci.vehicle.getRoute(vehicle_id)
             veh_remaing_route = get_remaining_route(veh_location,veh_route)
-            print("veh_id: " + str(vehicle_id) + ", location: " + str(veh_location)+ " | route = " + str(veh_route) + " | left = " + str(veh_remaing_route) )
-
+            # print("veh_id: " + str(vehicle_id) + ", location: " + str(veh_location)+ " | route = " + str(veh_route) + " | left = " + str(veh_remaing_route) )
+            if congestion_on_route(veh_remaing_route,live_congestion):
+                print("Hit Congestion")
+                print("   veh_id: " + str(vehicle_id) + ", location: " + str(veh_location)+ " | route = " + str(veh_route) + " | left = " + str(veh_remaing_route) )
+                traci.vehicle.rerouteTraveltime(vehicle_id)
         # ----- Development Code  ------------------------------------------------
 
         # if step == 343:
@@ -183,7 +192,7 @@ if __name__ == "__main__":
 
     # Post proccessing
     # print("step" + str(step))
-    # output_congestion_matrix(congestion_matrix, 'congestion_matrix.csv')
+    output_congestion_matrix(congestion_matrix, 'congestion_matrix.csv')
     
 
     # Close TraCI connection
