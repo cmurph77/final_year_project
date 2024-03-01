@@ -201,24 +201,24 @@ if __name__ == "__main__":
 
     # # Connect to SUMO simulation
     print("congfig_file: " + config_file)
-    traci.start(["sumo-gui", "-c", config_file])
+    traci.start(["sumo", "-c", config_file])
 
-    # #  Set up Code for measuring congestion
-    # network_edges = get_network_edges(net_file)   # gets a list of edges in the network
-    # baseline_edges_traveltime = create_edges_current_traveltime() # calculates the travel time for each edge 
-    # baseline_traveltimes = create_congestion_dict(baseline_edges_traveltime) 
-    # network_distances = get_distances_in_net(path_to_sim_files + net_file)
-    # congestion_matrix = []
-    # live_congestion = {}
+    #  Set up Code for measuring congestion
+    network_edges = get_network_edges(net_file)   # gets a list of edges in the network
+    baseline_edges_traveltime = create_edges_current_traveltime() # calculates the travel time for each edge 
+    baseline_traveltimes = create_congestion_dict(baseline_edges_traveltime) 
+    network_distances = get_distances_in_net(path_to_sim_files + net_file)
+    congestion_matrix = []
+    live_congestion = {}
     
 
 
-    # # Run the Simulation
-    # run_simulation(congestion_threshold, rereouting_prob,central_route)
+    # Run the Simulation
+    run_simulation(congestion_threshold, rereouting_prob,central_route)
 
-    # # Print out results
-    # output_congestion_matrix(congestion_matrix, congestion_matric_output_file)
+    # Print out results
+    output_congestion_matrix(congestion_matrix, congestion_matric_output_file)
     
 
     # Close TraCI connection
-    # traci.close()
+    traci.close()
