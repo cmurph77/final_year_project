@@ -259,9 +259,9 @@ if __name__ == "__main__":
     # print(same_tt_counts)
 
     #  ------ SINGLE FILE COMPARRISION
-    trip_count = 1000
+    trip_count = 1500
     file1_name = "astar_" + str(trip_count) + "tr_reg"
-    xml1 = parse_xml("/Users/cianmurphy/code_directories/final_year_project/experiments/central_routing/cr_exp1/output_files/astar_results/astar_" + str(trip_count) + "tr.out.xml")
+    xml1 = parse_xml("/Users/cianmurphy/code_directories/final_year_project/experiments/central_routing/cr_exp1/output_files/astar_" + str(trip_count) + "tr.out.xml")
     file2_name = "cr_" + str(trip_count) + "tr"
     xml2 = parse_xml("/Users/cianmurphy/code_directories/final_year_project/experiments/central_routing/cr_exp1/output_files/cr_" + str(trip_count) + "tr.out.xml")
     output_file_loc = "/Users/cianmurphy/code_directories/final_year_project/experiments/central_routing/cr_exp1/output_files/" + str(trip_count) + "tr_crVa.csv"
