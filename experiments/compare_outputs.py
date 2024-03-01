@@ -241,7 +241,8 @@ if __name__ == "__main__":
     network = args.arg1
 
     #  ------ SINGLE FILE COMPARRISION
-    trips_array = [500,1000,1250,1500]
+    trips_array = [1000,1500,2000,3000,4000]
+
     # network = "rand_20"
     print(" \n\n---------- PRINTING RESULTS FOR NETWORK: " + network + "-------------")
 

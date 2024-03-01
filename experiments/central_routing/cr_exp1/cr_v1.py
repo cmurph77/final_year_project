@@ -187,7 +187,7 @@ if __name__ == "__main__":
     if central_route : algorithm = "cr"
     else : algorithm = 'astar'
     path_to_sim_files = "sim_files/"
-    network = "grid_10"
+    network = "net_001"
 
     # File Details 
     config_file = path_to_sim_files + network +".sumocfg"

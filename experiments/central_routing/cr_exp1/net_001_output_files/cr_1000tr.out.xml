@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-03-01 22:24:01 by Eclipse SUMO sumo Version 1.18.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="sim_files/net_001.net.xml"/>
+        <route-files value="sim_files/../trip_files_net_001/1000tr_net_001.trips.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="sim_files/../net_001_output_files/cr_1000tr.out.xml"/>
+    </output>
+
+    <routing>
+        <routing-algorithm value="astar"/>
+    </routing>
+
+    <traci_server>
+        <remote-port value="63655"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="0" depart="0.00" arrival="49.00">
+        <route edges="17 64 -121"/>
+    </vehicle>
+
+    <vehicle id="7" depart="7.00" arrival="62.00">
+        <route edges="1774 -1523 1499"/>
+    </vehicle>
+
+    <vehicle id="13" depart="13.00" arrival="69.00">
+        <route edges="-1524 -1431 1447 -1533"/>
+    </vehicle>
+
+    <vehicle id="11" depart="11.00" arrival="96.00">
+        <route edges="-3719 601 -613 614 2149 -2149"/>
+    </vehicle>
+
+    <vehicle id="43" depart="43.00" arrival="99.00">
+        <route edges="882 1323 1359"/>
+    </vehicle>
+
+    <vehicle id="32" depart="32.00" arrival="111.00">
+        <route edges="3497 4050 -4050 -3497 -3438 3438"/>
+    </vehicle>
+
+    <vehicle id="25" depart="25.00" arrival="113.00">
+        <route edges="-3799 3779 -3121 3122 -2486"/>
+    </vehicle>
+
+    <vehicle id="60" depart="60.00" arrival="115.00">
+        <route edges="2756 3439 -1483 1483"/>
+    </vehicle>
+
+    <vehicle id="45" depart="46.00" arrival="116.00">
+        <route edges="-1773 1775 1935 2173"/>
+    </vehicle>
+
+    <vehicle id="63" depart="63.00" arrival="116.00">
+        <route edges="-119 117 325 589"/>
+    </vehicle>
+
+    <vehicle id="44" depart="44.00" arrival="122.00">
+        <route edges="-1523 -1429 -1363 1359 -1359"/>
+    </vehicle>
+
+    <vehicle id="23" depart="23.00" arrival="126.00">
+        <route edges="-1535 1535 -876 -639 -319 313 -326"/>
+    </vehicle>
+
+    <vehicle id="29" depart="29.00" arrival="133.00">
+        <route edges="-2168 -1930 1767 1357 1415 -523"/>
+    </vehicle>
+
+    <vehicle id="6" depart="6.00" arrival="136.00">
+        <route edges="-121 123 338 523 -1415 -1357 -1767 2447 -2447"/>
+    </vehicle>
+
+    <vehicle id="48" depart="48.00" arrival="139.00">
+        <route edges="880 1494 -1447 -1427 1429"/>
+    </vehicle>
+
+    <vehicle id="28" depart="30.00" arrival="141.00">
+        <route edges="-2185 2185 2482 -3121 -2183 2173 2453 3119"/>
+    </vehicle>
+
+    <vehicle id="107" depart="107.00" arrival="142.00">
+        <route edges="639 880"/>
+    </vehicle>
+
+    <vehicle id="59" depart="59.00" arrival="146.00">
+        <route edges="1441 2278 -2447 1930 2168 -2128"/>
+    </vehicle>
+
+    <vehicle id="76" depart="76.00" arrival="146.00">
+        <route edges="-4539 -4257 -3611 -1464 -1391 1391"/>
+    </vehicle>
+
+    <vehicle id="1" depart="1.00" arrival="147.00">
+        <route edges="-3131 -2502 -2206 2202 -2168 -2166 -3439 -2756"/>
+    </vehicle>
+
+    <vehicle id="16" depart="16.00" arrival="151.00">
+        <route edges="-882 -639 -319 -117 -15 -3 11 728"/>
+    </vehicle>
+
+    <vehicle id="12" depart="12.00" arrival="152.00">
+        <route edges="639 -639 625 732 837 -674 650 848 3162 -3772"/>
+    </vehicle>
+
+    <vehicle id="57" depart="57.00" arrival="152.00">
+        <route edges="504 597 684 2289 2732 3437 4049"/>
+    </vehicle>
+
+    <vehicle id="62" depart="62.00" arrival="152.00">
+        <route edges="-1005 1011 1345 1404 3737 -3739"/>
+    </vehicle>
+
+    <vehicle id="21" depart="21.00" arrival="156.00">
+        <route edges="-2607 -1532 1524 1533 -1494 1357 1415 -523 -338"/>
+    </vehicle>
+
+    <vehicle id="9" depart="9.00" arrival="161.00">
+        <route edges="3166 3907 -3328 3252 -3773 -1201 1199 -1343 -1093 -1029"/>
+    </vehicle>
+
+    <vehicle id="8" depart="8.00" arrival="163.00">
+        <route edges="-2486 -2185 -1941 -1773 -1501 1517 1783 -1883 1895"/>
+    </vehicle>
+
+    <vehicle id="122" depart="122.00" arrival="165.00">
+        <route edges="-2423 2425 2963"/>
+    </vehicle>
+
+    <vehicle id="67" depart="67.00" arrival="168.00">
+        <route edges="-15 -3 11 698 1027 1201"/>
+    </vehicle>
+
+    <vehicle id="74" depart="74.00" arrival="168.00">
+        <route edges="-2412 -535 -365 379 -492 -361"/>
+    </vehicle>
+
+    <vehicle id="38" depart="38.00" arrival="169.00">
+        <route edges="505 -505 523 -1415 -1357 -880 882 -882"/>
+    </vehicle>
+
+    <vehicle id="86" depart="86.00" arrival="170.00">
+        <route ed
