@@ -176,8 +176,8 @@ if __name__ == "__main__":
     set_sumocgf.set_routing_algo_value(config_file,"astar")
 
     # Sim output files
-    congestion_matric_output_file = 'output_files/congestion_matrices/1250tr_astar_cm.csv'
-    set_sumocgf.set_output_file_value(config_file,"../output_files/astar_1250tr.out.xml")
+    congestion_matric_output_file = 'output_files/congestion_matrices/1500tr_astar_cm.csv'
+    set_sumocgf.set_output_file_value(config_file,"../output_files/astar_1500tr.out.xml")
 
     # Connect to SUMO simulation
     traci.start(["sumo", "-c", config_file])
