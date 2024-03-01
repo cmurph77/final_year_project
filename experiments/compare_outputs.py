@@ -23,7 +23,7 @@ def parse_data(data):
         parsed_data[key] = value
     return parsed_data
 
-def graph_results(data1, data2,title,ylabel,labels):
+def graph_results(data1, data2,title,ylabel,labels,file1_name,file2_name):
     # labels = list(data1.keys())
     x = np.arange(len(labels))
     width = 0.35
@@ -34,8 +34,8 @@ def graph_results(data1, data2,title,ylabel,labels):
     values2 = [list(entry.values())[0] for entry in data2]
 
 
-    rects1 = ax.bar(x - width/2, values1, width, label='Data 1')
-    rects2 = ax.bar(x + width/2, values2, width, label='Data 2')
+    rects1 = ax.bar(x - width/2, values1, width, label="Individual Routing with A*")
+    rects2 = ax.bar(x + width/2, values2, width, label="Centrally Routed (CR)")
 
     ax.set_xlabel('Trips')
     ax.set_ylabel(ylabel)
@@ -253,7 +253,8 @@ if __name__ == "__main__":
         output_file_loc = "/Users/cianmurphy/code_directories/final_year_project/experiments/central_routing/cr_exp1/"+network+"_output_files/" + str(trip_count) + "tr_crVa.csv"
         compare_output_files(output_file_loc,xml1, xml2,file1_name,file2_name,str(trip_count))
 
-    # graph_results(t1_average_tt,t2_average_tt,"Average Travel Time", "Travel Time (seconds)",trips_array)
+
+    graph_results(t1_average_tt,t2_average_tt,"Average Travel Time", "Travel Time (seconds)",trips_array,file1_name,file2_name)
 
 
 

@@ -184,7 +184,8 @@ if __name__ == "__main__":
     congestion_threshold = 2
     rereouting_prob = 100
     central_route = True
-    algorithm = "cr"
+    if central_route : algorithm = "cr"
+    else : algorithm = 'astar'
     path_to_sim_files = "sim_files/"
     network = "grid_10"
 
