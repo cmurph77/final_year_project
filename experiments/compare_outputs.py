@@ -234,20 +234,23 @@ def create_overall_csv(out_filename, t1_average_tt, t2_average_tt,same_routes,sa
 
 if __name__ == "__main__":
 
-    trip_files_directory = "sim_outputs/"
-    csv_files_destinations = "sim_compare_csv/"
+    #  ------- FOR BATCH COMPARING FILES ----------------
+    # trip_files_directory = "sim_outputs/"
+    # csv_files_destinations = "sim_compare_csv/"
 
-    print_results_to_conole = False
+    # print_results_to_conole = False
 
-    trips_array = ["500","750","1000","1250","1500"]
+    # trips_array = ["500","750","1000","1250","1500"]
 
-    for trips in trips_array:
-        file1_name = "a_"+trips
-        xml1 = parse_xml(trip_files_directory+"astar/a_"+trips+"tr.out.xml")
-        file2_name = "d_"+trips
-        xml2 = parse_xml(trip_files_directory+"dijkstra/d_"+trips+"tr.out.xml")
-        compare_output_files(csv_files_destinations + "dva_"+trips+"tr_rand20.csv",xml1, xml2,file1_name,file2_name,trips)
-
+    # for trips in trips_array:
+    #     file1_name = "a_"+trips
+    #     xml1 = parse_xml(trip_files_directory+"astar/a_"+trips+"tr.out.xml")
+    #     file2_name = "d_"+trips
+    #     xml2 = parse_xml(trip_files_directory+"dijkstra/d_"+trips+"tr.out.xml")
+    #     compare_output_files(csv_files_destinations + "dva_"+trips+"tr_rand20.csv",xml1, xml2,file1_name,file2_name,trips)
+        # create_overall_csv((csv_files_destinations + "dva_rand20.compare.csv"), t1_average_tt, t2_average_tt,same_route_counts,same_tt_counts)
+   
+    # graph_results(t1_average_tt,t2_average_tt,"Average Travel Time", "Travel Time (seconds)",trips_array)
 
     print("\n\n")
     # print(t1_average_tt)
@@ -255,11 +258,19 @@ if __name__ == "__main__":
     # print(same_route_counts)
     # print(same_tt_counts)
 
+    #  ------ SINGLE FILE COMPARRISION
+    trip_count = 500
+    file1_name = "astar_500tr_reg"
+    xml1 = parse_xml("/Users/cianmurphy/code_directories/final_year_project/experiments/central_routing/cr_exp1/output_files/astar_results/a_star_500tr.out.xml")
+    file2_name = "cr_500tr"
+    xml2 = parse_xml('/Users/cianmurphy/code_directories/final_year_project/experiments/central_routing/cr_exp1/output_files/cr_500tr.out.xml')
+    output_file_loc = "/Users/cianmurphy/code_directories/final_year_project/experiments/central_routing/cr_exp1/output_files/500tr_crVa"
+    compare_output_files(output_file_loc,xml1, xml2,file1_name,file2_name,str(trip_count))
 
 
-    create_overall_csv((csv_files_destinations + "dva_rand20.compare.csv"), t1_average_tt, t2_average_tt,same_route_counts,same_tt_counts)
 
-    # graph_results(t1_average_tt,t2_average_tt,"Average Travel Time", "Travel Time (seconds)",trips_array)
+
+
 
 
     

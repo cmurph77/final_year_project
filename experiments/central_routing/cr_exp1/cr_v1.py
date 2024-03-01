@@ -153,11 +153,11 @@ if __name__ == "__main__":
     path_to_sim_files = "sim_files/"
     config_file = path_to_sim_files + "random_20.sumocfg"
     net_file = "random_20.net.xml"
-    congestion_matric_output_file = 'output_files/congestion_matrix.csv'
+    congestion_matric_output_file = 'output_files/congestion_matrices/500tr_cr_cm.csv'
     set_sumocgf.set_netfile_value(config_file,net_file)
-    set_sumocgf.set_route_file_value(config_file,"../trip_files_random20net/50tr_rand20.trips.xml")
+    set_sumocgf.set_route_file_value(config_file,"../trip_files_random20net/500tr_rand20.trips.xml")
     set_sumocgf.set_routing_algo_value(config_file,"astar")
-    set_sumocgf.set_output_file_value(config_file,"../output_files/new_output.out.xml")
+    set_sumocgf.set_output_file_value(config_file,"../output_files/cr_500tr.out.xml")
 
     # Connect to SUMO simulation
     traci.start(["sumo", "-c", config_file])
@@ -169,7 +169,6 @@ if __name__ == "__main__":
     network_distances = get_distances_in_net(path_to_sim_files + net_file)
     congestion_matrix = []
     live_congestion = {}
-    # init_live_congestion()
 
     # Run the Simulation
     run_simulation()
