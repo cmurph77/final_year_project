@@ -261,7 +261,7 @@ if __name__ == "__main__":
     #  ------ SINGLE FILE COMPARRISION
     trip_count = 1000
     file1_name = "astar_1000tr_reg"
-    xml1 = parse_xml("/Users/cianmurphy/code_directories/final_year_project/experiments/central_routing/cr_exp1/output_files/astar_results/a_star_1000tr.out.xml")
+    xml1 = parse_xml("/Users/cianmurphy/code_directories/final_year_project/experiments/central_routing/cr_exp1/output_files/astar_results/astar_1000tr.out.xml")
     file2_name = "cr_1000tr"
     xml2 = parse_xml('/Users/cianmurphy/code_directories/final_year_project/experiments/central_routing/cr_exp1/output_files/cr_1000tr.out.xml')
     output_file_loc = "/Users/cianmurphy/code_directories/final_year_project/experiments/central_routing/cr_exp1/output_files/1000tr_crVa"

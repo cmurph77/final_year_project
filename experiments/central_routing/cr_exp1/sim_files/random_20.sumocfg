@@ -12,7 +12,7 @@
 
 
    <output>
-        <vehroute-output value="../output_files/astar_1500tr.out.xml" />
+        <vehroute-output value="../output_files/cr_1000tr.out.xml" />
     </output>
 
 </configuration>
