@@ -219,16 +219,17 @@ if __name__ == "__main__":
     # Sim Constants - ie to be run before the start of each set up
 
     # Simulation Parameters
-    trip_count = 500
+    trip_count = 1000
     central_route = True
-    network = "rand_20"
-    net_file = network + ".net.xml"
-
+    network = "net_001"
+    
 
     # File Details
     if central_route: algorithm = "cr"
     else: algorithm = 'astar'
     path_to_sim_files = "sim_files/"
+    net_file = network + ".net.xml"
+
     
     # set the config files
     config_file = set_config_file(network,path_to_sim_files,algorithm)
