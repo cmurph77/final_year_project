@@ -8,6 +8,12 @@ import argparse
 import average_time
 import numpy as np
 
+# write a dictionary to a txt file
+def write_dict_to_file(dictionary, filename):
+    with open(filename, 'w') as file:
+        for key, value in dictionary.items():
+            file.write(f"{key}: {value}\n")
+
 
 def get_network_edges(net_file):
     return traci.edge.getIDList()   # gets a list of edges in the network
@@ -173,12 +179,11 @@ def simulation(congestion_threshold, central_route, network_edges,baseline_edges
 
 
 def run_sim(congestion_threshold):
-    # # Connect to SUMO simulation
-    traci.start(["sumo", "-c", config_file])
+    traci.start(["sumo", "-c", config_file])     # Connect to SUMO simulation
 
     #  Set up Code for measuring congestion
-    network_edges = get_network_edges(net_file)     # gets a list of edges in the network
-    baseline_edges_traveltime = create_edges_current_traveltime(network_edges)  # calculates the travel time for each edge
+    network_edges = get_network_edges(net_file)                                 # gets a list of edges in the network
+    baseline_edges_traveltime = create_edges_current_traveltime(network_edges)  # calculates the travel time for each edge at the start as a baseline
     # baseline_congestion = create_congestion_dict(baseline_edges_traveltime)
     network_distances = get_distances_in_net(path_to_sim_files + net_file)
 
@@ -186,17 +191,28 @@ def run_sim(congestion_threshold):
     congestion_matrix = simulation(congestion_threshold, central_route, network_edges,baseline_edges_traveltime)
 
     # Print out results
-    output_congestion_matrix(congestion_matrix, congestion_matric_output_file)
+    output_congestion_matrix(congestion_matrix, congestion_matrix_output_file)
 
     # Close TraCI connection - End Simulation
     traci.close()
 
+def set_config_file(network,path_to_sim_files,algorithm):
+    # Sim input files Files
+    config_file = path_to_sim_files + network + ".sumocfg"
+    net_file = network + ".net.xml"
+    set_sumocgf.set_netfile_value(config_file, net_file)
+    set_sumocgf.set_route_file_value(config_file, "../trip_files_"+network+"/" + str(trip_count) + "tr_"+network+".trips.xml")
+    set_sumocgf.set_routing_algo_value(config_file, "astar")
 
-def write_dict_to_file(dictionary, filename):
-    with open(filename, 'w') as file:
-        for key, value in dictionary.items():
-            file.write(f"{key}: {value}\n")
+    # Sim output files
+    output_file = "../"+network+"_output_files/" + algorithm + "_" + str(trip_count) + "tr.out.xml"
+    set_sumocgf.set_output_file_value(config_file, output_file)
 
+    return config_file
+
+def main():
+
+    return 0
 
 if __name__ == "__main__":
 
@@ -206,45 +222,33 @@ if __name__ == "__main__":
     trip_count = 500
     central_route = True
     network = "rand_20"
+    net_file = network + ".net.xml"
+
 
     # File Details
-    if central_route:
-        algorithm = "cr"
-    else:
-        algorithm = 'astar'
+    if central_route: algorithm = "cr"
+    else: algorithm = 'astar'
     path_to_sim_files = "sim_files/"
+    
+    # set the config files
+    config_file = set_config_file(network,path_to_sim_files,algorithm)
 
-    # Configure Sumo Files
-    config_file = path_to_sim_files + network + ".sumocfg"
-    net_file = network + ".net.xml"
-    set_sumocgf.set_netfile_value(config_file, net_file)
-    set_sumocgf.set_route_file_value(
-        config_file, "../trip_files_"+network+"/" + str(trip_count) + "tr_"+network+".trips.xml")
-    set_sumocgf.set_routing_algo_value(config_file, "astar")
-
-    # Sim output files
-    congestion_matric_output_file = network+"_output_files/congestion_matrices/" + \
-        str(trip_count) + "tr_" + algorithm + "_cm.csv"
-    output_file = "../"+network+"_output_files/" + \
-        algorithm + "_" + str(trip_count) + "tr.out.xml"
-    # print("Simulation Output File: " + output_file)
-    set_sumocgf.set_output_file_value(config_file, output_file)
-
-    rel_path_output_file = network+"_output_files/" + \
-        algorithm + "_" + str(trip_count) + "tr.out.xml"
-    print("Simulation Rel Output File: " + rel_path_output_file)
+    # Output file Locations
+    congestion_matrix_output_file = network+"_output_files/congestion_matrices/" + str(trip_count) + "tr_" + algorithm + "_cm.csv"
+    rel_path_output_file = network+"_output_files/" + algorithm + "_" + str(trip_count) + "tr.out.xml"
     results = {}
 
+    run_sim(5)
 
-    # Run Simulation
-    for congestion_threshold in np.arange(1,50,1):
-        # congestion_threshold = 2
-        run_sim(congestion_threshold)
-        avg_time = average_time.get_avg(rel_path_output_file)
-        results[str(congestion_threshold)] = str(avg_time)
-        print("\n\n\n")
-        write_dict_to_file(results, "r20_1to50_ct_1500tr_.txt")
-        print(results)
+    # # Run Simulation
+    # for congestion_threshold in np.arange(1,50,1):
+    #     # congestion_threshold = 2
+    #     run_sim(congestion_threshold)
+    #     avg_time = average_time.get_avg(rel_path_output_file)
+    #     results[str(congestion_threshold)] = str(avg_time)
+    #     print("\n\n\n")
+    #     write_dict_to_file(results, "r20_1to50_ct_1500tr_.txt")
+    #     print(results)
 
     # print("\n\n\n")
     # write_dict_to_file(results, "r20_1to100ct_1000tr_.txt")
