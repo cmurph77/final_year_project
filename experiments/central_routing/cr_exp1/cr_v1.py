@@ -165,20 +165,11 @@ def run_simulation(rereouting_prob,congestion_threshold,central_route):
 
 if __name__ == "__main__":
     
-    # Read in Arguments
-    # Create argument parser
-    parser = argparse.ArgumentParser(description='Description of your script.')
-
-    # Add arguments
-    parser.add_argument('arg1', type=int, help='Description of argument 1')
-    parser.add_argument('arg2', type=int, help='Description of argument 2')
-
-    # Parse arguments
-    args = parser.parse_args()
+    
 
     # Access parsed arguments
-    trip_count = args.arg1
-    congestion_threshold = args.arg2
+    trip_count = 500
+    congestion_threshold = 10
     print(" ----------- CONGESTION_T: " + str(congestion_threshold) )
 
 
