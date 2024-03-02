@@ -139,18 +139,12 @@ def run_simulation(rereouting_prob,congestion_threshold,central_route):
 
                 # Check if there is congestion on the route
                 if congestion_on_route(veh_remaing_route,live_congestion):
-                    # if vehicle_rerouted[int(vehicle_id)] == False :
-                    random_num = random.randint(1,100)
-                    # print("random_num: " + str(random_num))
-                    if random_num < rereouting_prob :
-                        # print("Hit Congestion")
-                        rerouted_count = rerouted_count + 1
-                        # print("   veh_id: " + str(vehicle_id) + ", location: " + str(veh_location)+ " | route = " + str(veh_route) + " | left = " + str(veh_remaing_route) )
-                        traci.vehicle.rerouteTraveltime(vehicle_id)
-                        vehicle_rerouted[int(vehicle_id)] = True
+                    rerouted_count = rerouted_count + 1
+                    # print("   veh_id: " + str(vehicle_id) + ", location: " + str(veh_location)+ " | route = " + str(veh_route) + " | left = " + str(veh_remaing_route) )
+                    traci.vehicle.rerouteTraveltime(vehicle_id)
+                    vehicle_rerouted[int(vehicle_id)] = True
 
         
-        # ----- Development Code  ------------------------------------------------
 
 
 
@@ -158,9 +152,6 @@ def run_simulation(rereouting_prob,congestion_threshold,central_route):
         # -----------------------------------------------------------------------------
         step += 1
         if t.vehicle.getIDCount() == 0:
-            # print("NO MORE VEHICLES")
-            # print("REREOUT COUNT: " + str(rerouted_count))
-
             run = False
 
 if __name__ == "__main__":
@@ -170,7 +161,7 @@ if __name__ == "__main__":
     # Access parsed arguments
     trip_count = 500
     congestion_threshold = 10
-    print(" ----------- CONGESTION_T: " + str(congestion_threshold) )
+    # print(" ----------- CONGESTION_T: " + str(congestion_threshold) )
 
 
 
