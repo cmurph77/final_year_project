@@ -13,8 +13,6 @@ def get_network_edges(net_file):
     return traci.edge.getIDList()   # gets a list of edges in the network
 
 # creates a dict with { edge_id : edge_length }
-
-
 def set_edge_length_dict():
     edge_lengths = {}
     for edge_id in network_edges:
@@ -23,8 +21,6 @@ def set_edge_length_dict():
     return edge_lengths
 
 # creates a dict with { edge_id : current_vehicles_on_edge }
-
-
 def create_edges_current_vehicles(active_vehicles, step):
     edges_current_vehicles = {}
     for edge in network_edges:
@@ -54,7 +50,6 @@ def create_congestion_dict(current_travel_times,baseline_edges_traveltime):
 
 # extracts distances from net file in the form { edge_id : distance }
 
-
 def get_distances_in_net(xml_file):
     tree = ET.parse(xml_file)
     root = tree.getroot()
@@ -70,8 +65,6 @@ def get_distances_in_net(xml_file):
     return edge_lengths
 
 # outputs a csv file of the congestion matrix with edge_ids on top row and congestion at each time step below
-
-
 def output_congestion_matrix(congestion_matrix, filename):
     with open(filename, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
@@ -102,7 +95,7 @@ def update_live_congestion(current_congestion, congestion_threshold):
 
     return live_congestion
 
-
+# this function checks if there is congestion on any of the edges on the routs
 def congestion_on_route(route, live_congestion):
     for edge_id in route:
         congestion = live_congestion[edge_id]
@@ -112,7 +105,7 @@ def congestion_on_route(route, live_congestion):
 
     return False
 
-
+# takes the vehicles location and route and determines the edges left on it
 def get_remaining_route(current_location, routes):
     # Find the index of the current location in the routes list
     try:
@@ -127,6 +120,7 @@ def get_remaining_route(current_location, routes):
     return remaining_route
 
 
+# SUMO simulation
 def simulation(congestion_threshold, central_route, network_edges,baseline_edges_traveltime):
     run = True
     step = 0
@@ -183,8 +177,7 @@ def run_sim(congestion_threshold):
     traci.start(["sumo", "-c", config_file])
 
     #  Set up Code for measuring congestion
-    # gets a list of edges in the network
-    network_edges = get_network_edges(net_file)
+    network_edges = get_network_edges(net_file)     # gets a list of edges in the network
     baseline_edges_traveltime = create_edges_current_traveltime(network_edges)  # calculates the travel time for each edge
     # baseline_congestion = create_congestion_dict(baseline_edges_traveltime)
     network_distances = get_distances_in_net(path_to_sim_files + net_file)
