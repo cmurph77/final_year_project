@@ -210,7 +210,25 @@ def set_config_file(network,path_to_sim_files,algorithm):
 
     return config_file
 
-def main():
+def read_args():
+    parser = argparse.ArgumentParser(description="Description of your script.")
+    # Define arguments
+    parser.add_argument("arg1", help="set the trip count")
+    parser.add_argument("arg2", help="set the network")
+    parser.add_argument("arg3", help="set the congestion threshold")
+    # parser.add_argument("arg2", help="Description of arg2")
+
+    # Add more arguments as needed
+
+    # Parse arguments
+    args = parser.parse_args()
+
+    # Accessing arguments
+
+    trip_count = args.arg1
+    network = args.arg2
+    congestion_threshold = args.arg3
+
 
     return 0
 
@@ -218,10 +236,13 @@ if __name__ == "__main__":
 
     # Sim Constants - ie to be run before the start of each set up
 
+
     # Simulation Parameters
-    trip_count = 1000
+    trip_count = 500
     central_route = True
-    network = "net_001"
+    network = "grid_10"
+    congestion_threshold = 5
+    # read_args() # uncomment for command line arguments
     
 
     # File Details
@@ -239,7 +260,7 @@ if __name__ == "__main__":
     rel_path_output_file = network+"_output_files/" + algorithm + "_" + str(trip_count) + "tr.out.xml"
     results = {}
 
-    run_sim(5)
+    run_sim(congestion_threshold)
 
     # # Run Simulation
     # for congestion_threshold in np.arange(1,50,1):
